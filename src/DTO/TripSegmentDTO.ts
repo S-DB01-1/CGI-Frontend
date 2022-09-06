@@ -1,15 +1,15 @@
 export class TripSegmentDTO {
     ID: number;
-    TripId: number;
+    TripID: number;
     Distance: number;
     Time: number;
     ExtraPersons: number;
     VechicleID: number;
     Emmision: number;
 
-    constructor(id: number, tripId: number, distance: number, time: number, extraPersons: number, vechicleID: number, emmision: number) {
+    constructor(id: number, tripID: number, distance: number, time: number, extraPersons: number, vechicleID: number, emmision: number) {
         this.ID = id;
-        this.TripId = tripId;
+        this.TripID = tripID;
         this.Distance = distance;
         this.Time = time;
         this.ExtraPersons = extraPersons;
