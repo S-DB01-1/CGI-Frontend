@@ -1,16 +1,18 @@
 import type {JWTToken} from "@/Type/JWTToken";
 
 export default class Token {
-  public Data: object;
-  private Expiration: Date;
-  private IssuedAt: Date;
+  private readonly _raw: string;
+  private readonly _data: object;
+  private readonly _expiration: Date;
+  private readonly _issuedAt: Date;
 
   constructor(token: string) {
     const tokenDecoded = this.Decode(token);
 
-    this.Expiration = new Date(tokenDecoded.exp);
-    this.IssuedAt = new Date(tokenDecoded.iat);
-    this.Data = tokenDecoded.data;
+    this._raw = token;
+    this._expiration = new Date(tokenDecoded.exp);
+    this._issuedAt = new Date(tokenDecoded.iat);
+    this._data = tokenDecoded.data;
   }
 
   private Decode(token: string): JWTToken {
@@ -26,7 +28,19 @@ export default class Token {
     return this.Expiration.getTime() - new Date().getTime();
   }
 
-  public GetData() {
-    return this.Data;
+  public get Raw() {
+    return this._raw
+  }
+
+  public get Data() {
+    return this._data
+  }
+
+  public get Expiration() {
+    return this._expiration
+  }
+
+  public get IssuedAt() {
+    return this._issuedAt
   }
 }
