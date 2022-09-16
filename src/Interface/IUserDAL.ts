@@ -5,5 +5,5 @@ export default interface IUserDAL {
   Read(): Promise<UserDTO[]>
   Get(ID: number): Promise<UserDTO>
   Update(user: UserDTO): Promise<UserDTO>
-  Delete(): Promise<void>
+  Delete(ID: number): Promise<void>
 }
