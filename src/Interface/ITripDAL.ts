@@ -1,5 +1,9 @@
 import type {TripDTO} from "@/DTO/TripDTO";
 
 export default interface ITripDAL {
-  Create(): Promise<TripDTO>
+  Create(trip: TripDTO): Promise<TripDTO>
+  Read(): Promise<TripDTO[]>
+  Get(ID: number): Promise<TripDTO>
+  Update(trip: TripDTO): Promise<TripDTO>
+  Delete(): Promise<void>
 }
