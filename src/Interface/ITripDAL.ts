@@ -5,5 +5,5 @@ export default interface ITripDAL {
   Read(): Promise<TripDTO[]>
   Get(ID: number): Promise<TripDTO>
   Update(trip: TripDTO): Promise<TripDTO>
-  Delete(): Promise<void>
+  Delete(ID: number): Promise<void>
 }
