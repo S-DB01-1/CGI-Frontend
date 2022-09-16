@@ -9,8 +9,8 @@ export default class AuthDALMemory implements IAuthDAL {
       exp: (new Date().getTime() / 1000) + 900,
       data: {
         ID: 1,
-        name: "John Doe",
-        email: "john@doe.com"
+        Name: "John Doe",
+        Email: "john@doe.com"
       }
     } as JWTToken
 
@@ -20,7 +20,7 @@ export default class AuthDALMemory implements IAuthDAL {
       return token;
     }
 
-    throw new Error('Login unsuccessfull.')
+    throw 'Invalid Credentials'
   }
 
   Logout() {
