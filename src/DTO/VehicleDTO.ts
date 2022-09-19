@@ -1,4 +1,4 @@
-export type VechicleDTO = {
+export type VehicleDTO = {
     ID: number;
     Name: string;
     EmmisionPerKm: number;
