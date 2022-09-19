@@ -4,6 +4,8 @@
 
 <template>
   <main>
-    main page
+    <div class="">
+
+    </div>
   </main>
 </template>
