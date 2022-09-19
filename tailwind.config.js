@@ -5,7 +5,20 @@ module.exports = {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'source-sans-pro': ['Source Sans Pro', 'sans-serif'],
+        'nunito': ['Nunito', 'sans-serif'],
+      },
+      colors: {
+        'primary': '#200a58',
+        'secondary': '#e41937',
+        'info': '#5236ab',
+
+        'background': '#f8f8f8',
+        'background-light': '#eaeaf5',
+      },
+    },
   },
   plugins: [],
 }
