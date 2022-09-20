@@ -4,8 +4,9 @@
 
 <template>
   <main>
+    //Navigation Bar
     <div class="">
-
+      
       <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
       <div class="container flex flex-wrap justify-between items-center mx-auto">
         <a href="https://flowbite.com/" class="flex items-center">
@@ -32,6 +33,36 @@
         </div>
       </nav>
 
+    </div>
+
+    <div> 
+      <h1 v-if="size === '1'" class="text-4xl">
+        <slot />
+      </h1>
+      <P> 
+        {{This is a paragraph used for raw html text.}}
+      </P>
+    </div>
+
+    <div> 
+      <h1 v-if="size === '1'" class="text-4xl">
+        <slot />
+      </h1>
+      <P> 
+        {{This is a paragraph used for raw html text.}}
+      </P>
+
+      <button :class="{
+      'font-source-sans-pro rounded-full font-medium': true,
+      'bg-secondary text-white': theme === 'default',
+      'bg-white text-black': theme === 'white',
+
+      'px-10 py-2 text-lg' : size === 'default',
+      'px-4 py-1 font-xs' : size === 'small',
+      'px-14 py-3 font-xl' : size === 'large'
+      }">
+      <slot />
+      </button>
     </div>
   </main>
 </template>
