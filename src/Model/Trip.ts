@@ -29,7 +29,7 @@ export default class Trip {
     const outputSegments = [] as TripSegment[]
 
     trip.Segements?.forEach(tripSegment => {
-      outputSegments.push(new TripSegment(tripSegment.ID, tripSegment.TripID, tripSegment.Distance, tripSegment.Time, tripSegment.ExtraPersons, tripSegment.VechicleID, tripSegment.Emmision))
+      outputSegments.push(new TripSegment(tripSegment.ID, tripSegment.TripID, tripSegment.Distance, tripSegment.Time, tripSegment.ExtraPersons, tripSegment.VehicleID, tripSegment.Emission))
     })
 
     return new Trip(trip.ID, trip.UserID, new Date(trip.Date), trip.TotalEmission, outputSegments)
