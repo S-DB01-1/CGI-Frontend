@@ -1,5 +1,6 @@
 import type {TripDTO} from "@/DTO/TripDTO";
 import TripSegment from "@/Model/TripSegment";
+import type {TripSegmentDTO} from "@/DTO/TripSegmentDTO";
 
 export default class Trip {
   ID: number;
@@ -17,18 +18,25 @@ export default class Trip {
   }
 
   ToDTO(): TripDTO {
+    const segments = [] as TripSegmentDTO[]
+
+    this.Segments.forEach(segment => {
+      segments.push(segment.ToDTO())
+    })
+
     return {
       ID: this.ID,
       UserID: this.UserID,
       Date: this.Date.toDateString(),
-      TotalEmission: this.TotalEmission
+      TotalEmission: this.TotalEmission,
+      Segments: segments
     }
   }
 
   static Load(trip: TripDTO): Trip {
     const outputSegments = [] as TripSegment[]
 
-    trip.Segements?.forEach(tripSegment => {
+    trip.Segments?.forEach(tripSegment => {
       outputSegments.push(new TripSegment(tripSegment.ID, tripSegment.TripID, tripSegment.Distance, tripSegment.Time, tripSegment.ExtraPersons, tripSegment.VehicleID, tripSegment.Emission))
     })
 

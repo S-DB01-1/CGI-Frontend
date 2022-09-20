@@ -1,9 +1,8 @@
 // stores/Auth.ts
 import {defineStore} from 'pinia'
-import type Vehicle from "@/Model/Vehicle";
+import Vehicle from "@/Model/Vehicle";
 import type IVehicleDAL from "@/Interface/IVehicleDAL";
 import VehicleDALMemory from "@/DAL/VehicleDALMemory";
-import type {VehicleDTO} from "@/DTO/VehicleDTO";
 
 type VehicleStore = {[key: number]: Vehicle};
 
@@ -24,8 +23,8 @@ export const useVehicleStore = defineStore('vehicle', {
   },
   actions: {
     async Create(vehicle: Vehicle) {
-      await DAL.Create(vehicle as VehicleDTO).then(vehicle => {
-        this.$state[vehicle.ID] = <Vehicle>vehicle;
+      await DAL.Create(vehicle).then(vehicle => {
+        this.$state[vehicle.ID] = Vehicle.Load(vehicle);
       }).catch(error => {
         console.error(error);
       })
@@ -33,7 +32,7 @@ export const useVehicleStore = defineStore('vehicle', {
     async Read() {
       await DAL.Read().then(vehicles => {
         vehicles.forEach(vehicle => {
-          this.$state[vehicle.ID] = <Vehicle>vehicle;
+          this.$state[vehicle.ID] = Vehicle.Load(vehicle);
         })
       }).catch(error => {
         console.error(error)
@@ -41,14 +40,14 @@ export const useVehicleStore = defineStore('vehicle', {
     },
     async Get(ID: number) {
       await DAL.Get(ID).then(vehicle => {
-        this.$state[vehicle.ID] = <Vehicle>vehicle;
+        this.$state[vehicle.ID] = Vehicle.Load(vehicle);
       }).catch(error => {
         console.error(error)
       })
     },
     async Update(vehicle: Vehicle) {
       await DAL.Update(vehicle).then(vehicle => {
-        this.$state[vehicle.ID] = <Vehicle>vehicle;
+        this.$state[vehicle.ID] = Vehicle.Load(vehicle);
       }).catch(error => {
         console.error(error)
       })

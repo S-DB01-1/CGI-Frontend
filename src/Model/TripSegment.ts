@@ -1,3 +1,5 @@
+import type {TripSegmentDTO} from "@/DTO/TripSegmentDTO";
+
 export default class TripSegment {
   ID: number;
   TripID: number;
@@ -15,5 +17,17 @@ export default class TripSegment {
     this.ExtraPersons = extraPersons;
     this.VehicleID = vehicleID;
     this.Emission = emission;
+  }
+
+  ToDTO(): TripSegmentDTO {
+    return {
+      ID: this.ID,
+      TripID: this.TripID,
+      Distance: this.Distance,
+      Time: this.Time,
+      ExtraPersons: this.ExtraPersons,
+      VehicleID: this.VehicleID,
+      Emission: this.Emission,
+    }
   }
 }

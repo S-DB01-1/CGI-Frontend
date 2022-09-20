@@ -5,5 +5,5 @@ export type TripDTO = {
     UserID: number;
     Date: string;
     TotalEmission: number;
-    Segements?: TripSegmentDTO[];
+    Segments?: TripSegmentDTO[];
   }

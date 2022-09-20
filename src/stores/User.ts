@@ -1,9 +1,8 @@
 // stores/Auth.ts
 import {defineStore} from 'pinia'
-import type User from "@/Model/User";
+import User from "@/Model/User";
 import type IUserDAL from "@/Interface/IUserDAL";
 import UserDALMemory from "@/DAL/UserDALMemory";
-import type {UserDTO} from "@/DTO/UserDTO";
 
 type UserStore = {[key: number]: User};
 
@@ -24,8 +23,8 @@ export const useUserStore = defineStore('user', {
   },
   actions: {
     async Create(user: User) {
-      await DAL.Create(user as UserDTO).then(user => {
-        this.$state[user.ID] = <User>user;
+      await DAL.Create(user).then(user => {
+        this.$state[user.ID] = User.Load(user);
       }).catch(error => {
         console.error(error);
       })
@@ -33,7 +32,7 @@ export const useUserStore = defineStore('user', {
     async Read() {
       await DAL.Read().then(users => {
         users.forEach(user => {
-          this.$state[user.ID] = <User>user;
+          this.$state[user.ID] = User.Load(user);
         })
       }).catch(error => {
         console.error(error)
@@ -41,14 +40,14 @@ export const useUserStore = defineStore('user', {
     },
     async Get(ID: number) {
       await DAL.Get(ID).then(user => {
-        this.$state[user.ID] = <User>user;
+        this.$state[user.ID] = User.Load(user);
       }).catch(error => {
         console.error(error)
       })
     },
     async Update(user: User) {
       await DAL.Update(user).then(user => {
-        this.$state[user.ID] = <User>user;
+        this.$state[user.ID] = User.Load(user);
       }).catch(error => {
         console.error(error)
       })
