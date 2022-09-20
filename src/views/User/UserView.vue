@@ -54,6 +54,10 @@ import router from "@/router";
     	console.debug("EDIT TRIP: " + tripID);
   }
 
+    function ButtonClick()
+    {
+      console.debug("oeoeoeooeoeoeoeo");
+    }
 </script>
 
 <style scoped>
