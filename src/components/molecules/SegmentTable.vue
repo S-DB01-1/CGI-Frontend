@@ -14,17 +14,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps } from 'vue';
     
-    defineProps({
-      title: {
-        type: String,
-        required: true
-      }
-    });
-    
-    </script>
-    <style scoped>
+</script>
+
+<style scoped>
     .SegmentTable
     {
       margin: 10px 0px;
