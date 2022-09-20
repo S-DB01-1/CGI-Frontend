@@ -7,8 +7,7 @@
 </template>
 
 <script setup lang="ts">
-    import { ref, defineProps } from 'vue';
-    import Button from './Button.vue';
+    import { defineProps } from 'vue';
     
     defineProps({
     distance: {
