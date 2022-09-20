@@ -4,6 +4,6 @@ export type TripSegmentDTO = {
     Distance: number;
     Time: number;
     ExtraPersons: number;
-    VechicleID: number;
-    Emmision: number;
+    VehicleID: number;
+    Emission: number;
 }
