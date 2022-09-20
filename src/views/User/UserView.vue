@@ -6,12 +6,12 @@
             <Title weight="normal" color="black" size="1">Reizen</Title>
             <Accordion title="Trips">
               <div v-for="trip in trips">
-                <AccordionItem :title="trip.Date">
+                <AccordionItem :title="trip.Date.toDateString()">
                 <Title weight="normal" color="black" size="4">Totale uitstoot: {{trip.TotalEmmision}}</Title>
                 <SegmentTable id="tripTable">
-                  <SegmmentTableRow v-for="segment in tripSegments" :distance="segment.Distance" :time="segment.Time" vehicle-name=""></SegmmentTableRow>
+                  <SegmmentTableRow v-for="segment in trip.Segments" :distance="segment.Distance" :time="segment.Time" vehicle-name=""></SegmmentTableRow>
                 </SegmentTable>
-                <Button theme="default" size="small" :onclick="ButtonClick()">aanpassen</Button>
+                <Button theme="default" size="small">aanpassen</Button>
               </AccordionItem>
               </div>
             </Accordion>
@@ -28,21 +28,20 @@
   import Accordion from "../../components/molecules/Accordion.vue";
   import Title from "../../components/atoms/Title.vue";
   import Button from "../../components/atoms/Button.vue";
-  import { TripSegmentDTO } from "@/DTO/TripSegmentDTO";
-  import { TripDTO } from "@/DTO/TripDTO";
+  import { useTripStore } from "@/stores/Trip";
+  import Trip from "../../Model/Trip";
 
-  let trips: TripDTO[] = new Array<TripDTO>;
-  trips[0] = new TripDTO(1,1,"20/09/2022 08:00", 220);
+  let trips = new Array<Trip>;
+  let trip = new Trip(1,1,new Date(),234567,[]);
   
-  let tripSegments: TripSegmentDTO[] = new Array<TripSegmentDTO>;
-  tripSegments[0] = new TripSegmentDTO(1, 1, 30,20,0,3,100);
-  tripSegments[1] = new TripSegmentDTO(2, 1, 21,35,0,2,120);
-  tripSegments[2] = new TripSegmentDTO(3, 1, 2,10,0,1,0);
+  console.debug("Before store");
+  const store = useTripStore();
+  console.debug("Store: "+ store);
+  store.Create(trip);
 
-    function ButtonClick()
-    {
-      console.debug("oeoeoeooeoeoeoeo");
-    }
+  let abc = useTripStore().$state;
+  console.debug("State: "+ abc);
+
 </script>
 
 <style scoped>

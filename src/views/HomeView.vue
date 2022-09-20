@@ -35,7 +35,7 @@
 
     </div>
 
-    <div> 
+    <!-- <div> 
       <h1 v-if="size === '1'" class="text-4xl">
         <slot />
       </h1>
@@ -63,6 +63,6 @@
       }">
       <slot />
       </button>
-    </div>
+    </div> -->
   </main>
 </template>
