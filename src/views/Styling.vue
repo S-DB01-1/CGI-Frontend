@@ -111,10 +111,10 @@
 </template>
 
 <script setup lang="ts">
-import Button from '../components/atoms/Button.vue';
+import Button from '../components/atoms/Forms/Button.vue';
 
-import Input from '../components/atoms/Input.vue';
-import Label from '../components/atoms/Label.vue';
+import Input from '../components/atoms/Forms/Input.vue';
+import Label from '../components/atoms/Forms/Label.vue';
 import Title from '../components/atoms/Title.vue';
 
 import Accordion from '../components/molecules/Accordion.vue';

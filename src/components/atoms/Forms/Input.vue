@@ -1,13 +1,13 @@
 <template>
-  <input type="text"
+  <input :type="type"
          :class="{
-            'block px-3 py-1 w-100 text-lg font-source-sans-pro font-medium': true,
+            'px-3 py-1 w-full text-lg font-source-sans-pro font-medium': true,
             'bg-white border-2 border-background': status === 'default',
             'border-0 border-b-2 border-info': status === 'bordered',
             'border border-red-500': status === 'error'
          }"
          :placeholder="placeholder"
-         :name="name">
+         :name="name" :id="name" :required="required">
 </template>
 
 <script setup lang="ts">
@@ -25,6 +25,15 @@ defineProps({
   name: {
     type: String,
     required: true,
+  },
+  type: {
+    type: String,
+    required: true,
+    default: 'text'
+  },
+  required: {
+    type: Boolean,
+    default: false
   }
 });
 </script>
