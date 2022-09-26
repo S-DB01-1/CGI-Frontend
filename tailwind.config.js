@@ -18,6 +18,11 @@ module.exports = {
         'background': '#f8f8f8',
         'background-light': '#eaeaf5',
       },
+      container: {
+        padding: {
+          DEFAULT: '8.5rem',
+        },
+      },
     },
   },
   plugins: [],

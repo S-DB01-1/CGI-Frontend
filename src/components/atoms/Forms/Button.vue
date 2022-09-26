@@ -1,11 +1,11 @@
 <template>
-  <button :class="{
+  <button :type="type" :class="{
       'font-source-sans-pro rounded-full font-medium': true,
       'bg-secondary text-white': theme === 'default',
       'bg-white text-black': theme === 'white',
 
       'px-10 py-2 text-lg' : size === 'default',
-      'px-4 py-1 font-xs' : size === 'small',
+      'px-3 py-0.5 font-xs' : size === 'small',
       'px-14 py-3 font-xl' : size === 'large'
     }">
     <slot />
@@ -23,6 +23,10 @@ const props = defineProps({
   size: {
     type: String,
     default: 'default'
+  },
+  type: {
+    type: String,
+    default: 'button'
   }
 });
 </script>
