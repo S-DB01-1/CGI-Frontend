@@ -115,14 +115,13 @@ import Datepicker from '../../components/atoms/Datepicker.vue'
 const date = ref(new Date());
 
 let modalState = ref(false);
-let modalEditState = ref(false);
 
 function showModal() {
   modalState.value = !modalState.value
 }
 
 function onModalClose(n: any) {
-  modalEditState.value = n
+  modalState.value = n
 }
 
 let vehicle = ref('')
