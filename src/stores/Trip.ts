@@ -29,7 +29,7 @@ export const useTripStore = defineStore('trip', {
         console.error(error);
       })
     },
-    async Read() {
+    async ReadAll() {
       await DAL.Read().then(trips => {
         trips.forEach(trip => {
           this.$state[trip.ID] = Trip.Load(trip);
@@ -38,7 +38,7 @@ export const useTripStore = defineStore('trip', {
         console.error(error)
       })
     },
-    async Get(ID: number) {
+    async GetOne(ID: number) {
       await DAL.Get(ID).then(trip => {
         this.$state[trip.ID] = Trip.Load(trip);
       }).catch(error => {

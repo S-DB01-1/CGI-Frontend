@@ -29,7 +29,7 @@ export const useVehicleStore = defineStore('vehicle', {
         console.error(error);
       })
     },
-    async Read() {
+    async ReadAll() {
       await DAL.Read().then(vehicles => {
         vehicles.forEach(vehicle => {
           this.$state[vehicle.ID] = Vehicle.Load(vehicle);
@@ -38,7 +38,7 @@ export const useVehicleStore = defineStore('vehicle', {
         console.error(error)
       })
     },
-    async Get(ID: number) {
+    async GetOne(ID: number) {
       await DAL.Get(ID).then(vehicle => {
         this.$state[vehicle.ID] = Vehicle.Load(vehicle);
       }).catch(error => {

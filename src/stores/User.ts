@@ -29,7 +29,7 @@ export const useUserStore = defineStore('user', {
         console.error(error);
       })
     },
-    async Read() {
+    async ReadAll() {
       await DAL.Read().then(users => {
         users.forEach(user => {
           this.$state[user.ID] = User.Load(user);
@@ -38,7 +38,7 @@ export const useUserStore = defineStore('user', {
         console.error(error)
       })
     },
-    async Get(ID: number) {
+    async GetOne(ID: number) {
       await DAL.Get(ID).then(user => {
         this.$state[user.ID] = User.Load(user);
       }).catch(error => {
