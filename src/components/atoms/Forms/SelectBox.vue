@@ -17,6 +17,9 @@ defineProps({
   items: {
     type: [],
   },
+  model: {
+    type: String
+  }
 });
 </script>
 

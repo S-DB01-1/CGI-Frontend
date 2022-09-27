@@ -1,7 +1,7 @@
 <template>
   <div class="mb-3">
     <Label>{{ label }}</Label>
-    <SelectBox :name="name" :items="items"></SelectBox>
+    <SelectBox :name="name" :items="items" :model="model"></SelectBox>
   </div>
 </template>
 
@@ -22,6 +22,9 @@ defineProps({
   items: {
     type: [],
   },
+  model: {
+    type: String
+  }
 });
 </script>
 

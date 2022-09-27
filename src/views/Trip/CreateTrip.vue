@@ -5,9 +5,31 @@
       <Title color="primary" weight="bold" size="4" class="mb-3">Reisdeel toevoegen</Title>
 
       <form v-on:submit.prevent="submitForm()">
-        <SelectGroup name="vehicle" label="Voertuig"></SelectGroup>
-        <InputGroup placeholder="Afstand in kilometers" status="default" name="distance" label="Afstand" required></InputGroup>
-        <InputGroup type="number" placeholder="Reistijd in minuten" status="default" name="time" label="Reistijd" required></InputGroup>
+      <FormKit
+            label="Vervoersmiddel"
+            type="select"
+            placeholder="Vervoersmiddel"
+            v-model="vehicle"
+            :options="[
+              'Auto',
+              'Fiets',
+              'Trein',
+            ]"
+        />
+
+        <FormKit
+            label="Afstand in kilometers"
+            type="number"
+            placeholder="Afstand in kilometers"
+            v-model="distance"
+        />
+
+        <FormKit
+            label="Tijd in minuten"
+            type="number"
+            placeholder="Tijd in minuten"
+            v-model="time"
+        />
 
         <div class="flex justify-end">
           <Button type="submit" size="default" theme="default">Toevoegen</Button>
@@ -24,7 +46,17 @@
           <div class="w-full lg:w-3/5 py-4 px-6 m-auto">
 
             <!-- Trip date -->
-            <InputGroup placeholder="Reis datum" status="default" name="tripdate" label="Reis datum"></InputGroup>
+            <v-date-picker class="inline-block h-full w-full mb-3" v-model="date" :max-date='new Date()' color="red">
+              <template v-slot="{ inputValue, togglePopover }">
+                <div class="flex items-center">
+                  <input
+                      :value="inputValue"
+                      class="px-3 py-1 w-full text-lg font-source-sans-pro font-medium bg-white border-2 border-background"
+                      readonly @click="togglePopover()"
+                  />
+                </div>
+              </template>
+            </v-date-picker>
 
             <!-- Trip segments -->
 
@@ -40,7 +72,7 @@
                   <li v-for="(segment, index) in tripSegments" v-bind:key="index" class="w-full flex justify-between bg-background-light py-3 px-5 mb-3">
                     <span>{{ segment.vehicle }} ({{ segment.distance }} km, {{ segment.time }} min)</span>
                     <div class="">
-                      <i class="fas fa-edit mr-3 text-primary cursor-pointer"></i>
+                      <i class="fas fa-edit mr-3 text-primary cursor-pointer" @click="showEditModal"></i>
                       <i class="fas fa-trash text-secondary cursor-pointer" @click="deleteItem(index)"></i>
                     </div>
                   </li>
@@ -66,6 +98,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+
 import InputGroup from '../../components/molecules/Forms/InputGroup.vue'
 import SelectGroup from '../../components/molecules/Forms/SelectGroup.vue'
 import Modal from '../../components/atoms/Modal.vue'
@@ -76,14 +110,19 @@ import Label from '../../components/atoms/Forms/Label.vue'
 import Hero from '../../components/molecules/Hero.vue'
 import Navigation from '../../components/molecules/Navigation.vue'
 
-import { ref } from "vue";
+import Datepicker from '../../components/atoms/Datepicker.vue'
+
+const date = ref(new Date());
 
 let modalState = ref(false);
-function showModal(){
+let modalEditState = ref(false);
+
+function showModal() {
   modalState.value = !modalState.value
 }
+
 function onModalClose(n: any) {
-  modalState.value = n
+  modalEditState.value = n
 }
 
 let vehicle = ref('')
@@ -92,29 +131,20 @@ let time = ref('')
 let tripSegments = ref([])
 
 function submitForm() {
-  vehicle = document.getElementById('vehicle').value;
-  distance = document.getElementById('distance').value;
-  time = document.getElementById('time').value;
-
-  tripSegments.value.push({ vehicle: vehicle, distance: distance, time: time })
+  tripSegments.value.push({ vehicle: vehicle.value, distance: distance.value, time: time.value })
 
   clearForm();
   showModal();
 }
 
-function updateSegment(index) {
-  let segment = tripSegments[index];
-  document.getElementById('distance').value = segment.distance;
-  document.getElementById('time').value = segment.time;
-}
-
-function deleteItem(index) {
+function deleteItem(index: number) {
   tripSegments.value.splice(index, 1);
 }
 
 function clearForm() {
-  document.getElementById('distance').value = '';
-  document.getElementById('time').value = '';
+  vehicle.value = ''
+  time.value = ''
+  distance.value = ''
 }
 </script>
 
