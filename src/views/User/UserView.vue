@@ -2,8 +2,7 @@
     <Navigation></Navigation>
   <main>
     <div class="container mx-auto">
-      <div class="flex flex-col md:flex-row gap-4">
-        <div class="w-full lg:w-2/3 bg-background-light py-4 px-6">
+        <div class="w-full sm:w-3/3 lg:w-2/3 bg-background-light py-4 px-6">
           <Title weight="normal" color="black" size="1">Reis overzicht</Title>
           <Accordion title="Trips">
             <div v-for="trip in Read">
@@ -16,8 +15,8 @@
             </AccordionItem>
             </div>
           </Accordion>
+          <Button theme="default" size="small">Reis toevoegen</Button>
         </div>
-      </div>
     </div>
   </main>
 </template>
@@ -34,7 +33,6 @@
   import TripSegment from "@/Model/TripSegment";
   import Navigation from '../../components/molecules/Navigation.vue'
   import { storeToRefs } from "pinia";
-import router from "@/router";
 
   const store = useTripStore();
   const { Read } = storeToRefs(store);
@@ -57,5 +55,12 @@ import router from "@/router";
 </script>
 
 <style scoped>
+.container {
+  padding-left: 0;
+  padding-right: 0;
+}
 
+.container div{
+  margin: auto;
+}
 </style>

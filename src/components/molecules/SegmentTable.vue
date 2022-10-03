@@ -4,7 +4,7 @@
       <tr>
         <th scope="col" class="text-sm font-small text-gray-900 px-6 py-4 text-left">Afstand</th>
         <th scope="col" class="text-sm font-small text-gray-900 px-6 py-4 text-left">Tijd</th>
-        <th scope="col" class="text-sm font-small text-gray-900 px-6 py-4 text-left">Vervoersmiddel</th>
+        <th scope="col" class="text-sm font-small text-gray-900 px-6 py-4 text-left">Vervoer</th>
       </tr>
     </thead>
     <tbody class="">
@@ -20,8 +20,8 @@
 <style scoped>
     .SegmentTable
     {
-      margin: 10px 0px;
-      width: 90%;
+      padding-left: 0;
+      padding-right: 0;
     }
 
     th {
