@@ -5,16 +5,13 @@
         <div class="w-full sm:w-3/3 lg:w-2/3 bg-background-light py-4 px-6">
           <Title weight="normal" color="black" size="1">Reis overzicht</Title>
           <Accordion title="Trips">
-            <div v-for="trip in Read">
-              <AccordionItem :title="trip.Date.toDateString()">
-              <Title weight="normal" color="black" size="4">Totale uitstoot: {{trip.TotalEmission}}</Title>
-              <SegmentTable>
-                <SegmmentTableRow v-for="segment in trip.Segments" :distance="segment.Distance" :time="segment.Time" :vehicle-name="segment.Emission.toString()"></SegmmentTableRow>
-              </SegmentTable>
-              <Button theme="default" size="small" @click ="EditTrip(trip.ID)">aanpassen</Button>
-            </AccordionItem>
+            <div ref="arcordionitemsList">
+              {{}}
             </div>
           </Accordion>
+          <div id="pagination">
+
+          </div>
           <Button theme="default" size="small">Reis toevoegen</Button>
         </div>
     </div>
@@ -33,7 +30,7 @@
   import TripSegment from "@/Model/TripSegment";
   import Navigation from '../../components/molecules/Navigation.vue'
   import { storeToRefs } from "pinia";
-
+import { onMounted, ref } from "vue";
   const store = useTripStore();
   const { Read } = storeToRefs(store);
 
@@ -47,9 +44,33 @@
   store.Create(trip1);
   store.Create(trip2);
 
+  onMounted(() => {
+    FillArcordion();
+})
+
   function EditTrip(tripID: number)
   {
     	console.debug("EDIT TRIP: " + tripID);
+  }
+
+  function FillArcordion()
+  {
+    let List = ref(null);
+    console.debug("FillArcordion: " + List);
+
+    for (let i = 0; i < Read.value.length; i++) {
+      let row = "<AccordionItem :title='" + Read.value[0].Date.toString() + "[[trip.Date.toDateString()]]'>" + 
+                  "<Title weight='normal' color='black' size='4'>Totale uitstoot: {{trip.TotalEmission}}</Title>" + 
+                  "<SegmentTable>" + 
+                    "<SegmmentTableRow v-for='segment in trip.Segments' :distance='segment.Distance' :time='segment.Time' :vehicle-name='segment.Emission.toString()'>" +
+                      "</SegmmentTableRow>" +
+                    "</SegmentTable>" +
+                    "<Button theme='default' size='small' @click ='EditTrip(trip.ID)'>aanpassen</Button>" +
+                "</AccordionItem>"
+      console.debug("ROW: " + row);
+    }
+    console.debug("hhhhuobkao: ");
+    
   }
 
 </script>
