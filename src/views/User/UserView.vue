@@ -15,27 +15,8 @@
             </AccordionItem>
             </div>
           </Accordion>
-          <div class="pagination">
-            <Button theme="default" size="small" 
-              @click="handlePaginationvalue.backPage" 
-              v-if="handlePaginationvalue.page.value != 1">
-              prev
-            </Button>
-            <Button :theme="handlePaginationvalue.pageButtonTheme(pageNum)" size="small"
-              v-for="pageNum in handlePaginationvalue.pageRange()"
-              
-              :key="pageNum"
-              @click="() => handlePaginationvalue.goToPage(pageNum)"
-            >
-              {{ pageNum }}
-            </Button>
-            <span v-if="!handlePaginationvalue.pageRange().includes(handlePaginationvalue.pagecount)"> ... </span>
-            <Button theme="default" size="small" 
-              @click="handlePaginationvalue.nextPage" 
-              v-if="handlePaginationvalue.page.value != handlePaginationvalue.pagecount">
-              next
-            </Button>
-          </div>
+          <Pagination :handle-paginationvalue="handlePaginationvalue" >
+          </Pagination>
           <br>
           <Button theme="default" size="small">add trip</Button>
         </div>
@@ -56,6 +37,7 @@
   import Navigation from '../../components/molecules/Navigation.vue'
   import { storeToRefs } from "pinia";
   import handlePagination from "@/handlePagination";
+import Pagination from "../../components/molecules/Pagination.vue";
   const store = useTripStore();
   const { Read } = storeToRefs(store);
   const trips: Array<Trip> = []; 
@@ -75,7 +57,7 @@
   store.Create(trip1);
   store.Create(trip2);
 
-  const handlePaginationvalue = handlePagination(5, 5, trips)
+  const handlePaginationvalue = handlePagination(5, 5, trips);
 
   function EditTrip(tripID: number)
   {
@@ -91,10 +73,5 @@
 
 .container div{
   margin: auto;
-}
-
-.pagination {
-  align-content: center;
-  width: fit-content;
 }
 </style>
