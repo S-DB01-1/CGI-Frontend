@@ -3,13 +3,9 @@ import { ref, computed } from "vue";
 export default function handlePagination(pageSize: number, maxPages: number, data: Array<any>) {
   let page = ref(1);
 
-  const perPage = pageSize;
-
-  const maxpagecount = maxPages;
-
   const Data = data;
 
-  const pagecount = Math.ceil(data.length / perPage);
+  const pagecount = Math.ceil(data.length / pageSize);
 
   let maxLeft = (page.value - Math.floor(maxPages / 2));
   let maxright = (page.value + Math.floor(maxPages / 2));
@@ -24,30 +20,27 @@ export default function handlePagination(pageSize: number, maxPages: number, dat
   }
 
   const paginatedData = computed(() =>
-    Data.slice((page.value - 1) * perPage, page.value * perPage)
+    Data.slice((page.value - 1) * pageSize, page.value * pageSize)
   );
 
   const nextPage = () => {
     if (page.value !== pagecount) {
       page.value += 1;
     }
-    calcPages();
   };
 
   const backPage = () => {
     if (page.value !== 1) {
       page.value -= 1;
     }
-    calcPages();
   };
 
   const goToPage = (numPage: number) => {
     page.value = numPage;
-    calcPages();
   };
 
   
-  const calcPages = () => {
+  const pageRange = () => {
     maxLeft = (page.value - Math.floor(maxPages / 2));
     maxright = (page.value + Math.floor(maxPages / 2));
 
@@ -64,9 +57,13 @@ export default function handlePagination(pageSize: number, maxPages: number, dat
       }
     }
 
-    console.debug("maxleft :" + maxLeft);
-    console.debug("maxright :" + maxright);
+    var array = [],
+    j = 0;
+    for(var i = maxLeft; i <= maxright; i++){
+    array[j] = i;
+    j++;
+    }
+    return array;
   }
-
-  return { data, paginatedData, page, maxpagecount, pagecount, pageButtonTheme, nextPage, backPage, goToPage };
+  return { data, paginatedData, page, pagecount, pageButtonTheme, nextPage, backPage, goToPage, pageRange };
 }

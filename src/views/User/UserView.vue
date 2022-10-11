@@ -23,17 +23,20 @@
               v-if="handlePaginationvalue.page.value != 1">
               prev
             </Button>
+            <!-- v-for="pageNum in handlePaginationvalue.calcPages" -->
+            <!-- v-for="pageNum = handlePaginationvalue.calcPages().maxLeft; page > handlePaginationvalue.calcPages().maxright; page++" -->
             <Button :theme="handlePaginationvalue.pageButtonTheme(pageNum)" size="small"
-              v-for="pageNum in handlePaginationvalue.pagecount"
+              v-for="pageNum in handlePaginationvalue.pageRange()"
+              
               :key="pageNum"
-              :id="'pageBtnRef'+pageNum"
               @click="() => handlePaginationvalue.goToPage(pageNum)"
             >
               {{ pageNum }}
             </Button>
+            <span v-if="!handlePaginationvalue.pageRange().includes(handlePaginationvalue.pagecount)"> ... </span>
             <Button theme="default" size="small" 
               @click="handlePaginationvalue.nextPage" 
-              v-if="handlePaginationvalue.page.value != handlePaginationvalue.data.length">
+              v-if="handlePaginationvalue.page.value != handlePaginationvalue.pagecount">
               next
             </Button>
           </div>
@@ -77,7 +80,7 @@ import handlePagination from "@/handlePagination";
   store.Create(trip1);
   store.Create(trip2);
 
-  const handlePaginationvalue = handlePagination(1, 5, trips)
+  const handlePaginationvalue = handlePagination(3, 5, trips)
 
   // onMounted(() => {
   //     let item = document.getElementById("pageBtnRef1");
