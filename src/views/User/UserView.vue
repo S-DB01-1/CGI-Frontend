@@ -18,16 +18,24 @@
             </div>
           </Accordion>
           <div id="pagination">
-            <Button theme="default" size="small" @click="handlePaginationvalue.backPage">prev</Button>
-            <Button :theme="handlePaginationvalue.buttonTheme(item)" size="small"
-              v-for="item in Math.ceil(handlePaginationvalue.data.length / handlePaginationvalue.perPage)"
-              :key="item"
-              :id="'pageBtnRef'+item"
-              @click="() => handlePaginationvalue.goToPage(item)"
-            >
-              {{ item }}
+            <Button theme="default" size="small" 
+              @click="handlePaginationvalue.backPage" 
+              v-if="handlePaginationvalue.page.value != 1">
+              prev
             </Button>
-            <Button theme="default" size="small" @click="handlePaginationvalue.nextPage">next</Button>
+            <Button :theme="handlePaginationvalue.pageButtonTheme(pageNum)" size="small"
+              v-for="pageNum in handlePaginationvalue.pagecount"
+              :key="pageNum"
+              :id="'pageBtnRef'+pageNum"
+              @click="() => handlePaginationvalue.goToPage(pageNum)"
+            >
+              {{ pageNum }}
+            </Button>
+            <Button theme="default" size="small" 
+              @click="handlePaginationvalue.nextPage" 
+              v-if="handlePaginationvalue.page.value != handlePaginationvalue.data.length">
+              next
+            </Button>
           </div>
           <br>
           <Button theme="default" size="small">add trip</Button>
@@ -69,11 +77,7 @@ import handlePagination from "@/handlePagination";
   store.Create(trip1);
   store.Create(trip2);
 
-  const handlePaginationvalue = handlePagination(5, trips);
-  
-  // onMounted(() => {
-  //   handlePaginationvalue.colorCurrentPage();
-  // })
+  const handlePaginationvalue = handlePagination(1, 5, trips)
 
   // onMounted(() => {
   //     let item = document.getElementById("pageBtnRef1");
