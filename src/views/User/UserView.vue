@@ -17,14 +17,12 @@
             </AccordionItem>
             </div>
           </Accordion>
-          <div id="pagination">
+          <div class="pagination">
             <Button theme="default" size="small" 
               @click="handlePaginationvalue.backPage" 
               v-if="handlePaginationvalue.page.value != 1">
               prev
             </Button>
-            <!-- v-for="pageNum in handlePaginationvalue.calcPages" -->
-            <!-- v-for="pageNum = handlePaginationvalue.calcPages().maxLeft; page > handlePaginationvalue.calcPages().maxright; page++" -->
             <Button :theme="handlePaginationvalue.pageButtonTheme(pageNum)" size="small"
               v-for="pageNum in handlePaginationvalue.pageRange()"
               
@@ -59,8 +57,7 @@
   import TripSegment from "@/Model/TripSegment";
   import Navigation from '../../components/molecules/Navigation.vue'
   import { storeToRefs } from "pinia";
-import { onMounted, ref } from "vue";
-import handlePagination from "@/handlePagination";
+  import handlePagination from "@/handlePagination";
   const store = useTripStore();
   const { Read } = storeToRefs(store);
   const trips: Array<Trip> = []; 
@@ -71,7 +68,7 @@ import handlePagination from "@/handlePagination";
   let trip1 = new Trip(1,1,new Date(),550,[segment1, segment2, segment3]);
   let trip2 = new Trip(1,1,new Date(),550,[segment3, segment2, segment1]);
 
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 38; i++) {
     let trip = new Trip(i,1,new Date(),550,[segment1, segment2, segment3]);
     trips[i] = trip;
   }
@@ -80,44 +77,7 @@ import handlePagination from "@/handlePagination";
   store.Create(trip1);
   store.Create(trip2);
 
-  const handlePaginationvalue = handlePagination(3, 5, trips)
-
-  // onMounted(() => {
-  //     let item = document.getElementById("pageBtnRef1");
-  //     item.classList.add("Selected");
-  //   });
-
-//   onMounted(() => {
-//     FillArcordion();
-// })
-
-  // function FillArcordion(): String
-  // {
-  //   let List = ref("arcordionitemsList");
-  //   let Accordion = "";
-  //   console.debug("FillArcordion: " + List);
-
-  //   for (let i = 0; i < 2; i++) {
-  //     let row = "<AccordionItem :title='" + Read.value[i].Date.toDateString() + "'>" + 
-  //                 "<Title weight='normal' color='black' size='4'>Totale uitstoot: " + Read.value[i].TotalEmission + "</Title>" + 
-  //                 "<SegmentTable>";
-
-  //     let segments = Read.value[i].Segments;
-  //     for (let j = 0; j < 2; j++)              
-  //     {
-  //       row += "<SegmmentTableRow :distance='" + segments[j].Distance + "' :time='" + segments[j].Time + "' :vehicle-name='" + segments[j].VehicleID + "'>" +
-  //               "</SegmmentTableRow>";
-  //               console.debug("ROW: " + row);
-  //     }
-  //     row +=     "</SegmentTable>" +
-  //                "<Button theme='default' size='small' @click ='EditTrip(trip.ID)'>aanpassen</Button>" +
-  //               "</AccordionItem>";
-  //     console.debug("ROW: " + row);
-  //     Accordion += row;
-  //   }
-  //   console.debug("ACCORDION: " + Accordion);
-  //   return Accordion;  
-  // }
+  const handlePaginationvalue = handlePagination(5, 5, trips)
 
   function EditTrip(tripID: number)
   {
@@ -135,8 +95,8 @@ import handlePagination from "@/handlePagination";
   margin: auto;
 }
 
-.Selected {
-  color: black;
-  background-color: white;
+.pagination {
+  align-content: center;
+  width: fit-content;
 }
 </style>
