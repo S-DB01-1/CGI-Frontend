@@ -8,6 +8,15 @@ export default function handlePagination(pageSize: number, data: Array<any>) {
 
   const Data = data;
 
+  const buttonTheme = (pagenum: number) => {
+    if (pagenum == page.value) {
+      return "white";
+    }
+    else{
+      return "default";
+    }
+  }
+
   const paginatedData = computed(() =>
     Data.slice((page.value - 1) * perPage, page.value * perPage)
   );
@@ -28,5 +37,5 @@ export default function handlePagination(pageSize: number, data: Array<any>) {
     page.value = numPage;
   };
 
-  return { data, paginatedData, perPage, page, nextPage, backPage, goToPage };
+  return { data, paginatedData, perPage, page, buttonTheme, nextPage, backPage, goToPage };
 }

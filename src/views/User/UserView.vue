@@ -11,25 +11,26 @@
               <AccordionItem :title="trip.Date.toDateString() + ' ' + trip.ID">
               <Title weight="normal" color="black" size="4">Total Emmision: {{trip.TotalEmission}}</Title>
               <SegmentTable>
-                <SegmmentTableRow v-for="segment in trip.Segments" :distance="segment.Distance" :time="segment.Time" :vehicle-name="segment.VehicleID"></SegmmentTableRow>
+                <SegmmentTableRow v-for="segment in trip.Segments" :distance="segment.Distance" :time="segment.Time" :vehicle-name="segment.VehicleID.toString()"></SegmmentTableRow>
               </SegmentTable>
-              <Button theme="default" size="small" @click ="EditTrip(trip.ID)">aanpassen</Button>
+              <Button theme="default" size="small" @click ="EditTrip(trip.ID)">edit</Button>
             </AccordionItem>
             </div>
           </Accordion>
           <div id="pagination">
             <Button theme="default" size="small" @click="handlePaginationvalue.backPage">prev</Button>
-            <Button theme="default" size="small"
+            <Button :theme="handlePaginationvalue.buttonTheme(item)" size="small"
               v-for="item in Math.ceil(handlePaginationvalue.data.length / handlePaginationvalue.perPage)"
               :key="item"
+              :id="'pageBtnRef'+item"
               @click="() => handlePaginationvalue.goToPage(item)"
             >
               {{ item }}
             </Button>
-            <Button theme="default" size="small" @click="handlePaginationvalue.nextPage">Next</Button>
+            <Button theme="default" size="small" @click="handlePaginationvalue.nextPage">next</Button>
           </div>
           <br>
-          <Button theme="default" size="small">Add trip</Button>
+          <Button theme="default" size="small">add trip</Button>
         </div>
     </div>
   </main>
@@ -69,6 +70,15 @@ import handlePagination from "@/handlePagination";
   store.Create(trip2);
 
   const handlePaginationvalue = handlePagination(5, trips);
+  
+  // onMounted(() => {
+  //   handlePaginationvalue.colorCurrentPage();
+  // })
+
+  // onMounted(() => {
+  //     let item = document.getElementById("pageBtnRef1");
+  //     item.classList.add("Selected");
+  //   });
 
 //   onMounted(() => {
 //     FillArcordion();
@@ -116,5 +126,10 @@ import handlePagination from "@/handlePagination";
 
 .container div{
   margin: auto;
+}
+
+.Selected {
+  color: black;
+  background-color: white;
 }
 </style>
