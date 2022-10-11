@@ -5,7 +5,7 @@
       'bg-white text-black': theme === 'white',
 
       'px-10 py-2 text-lg' : size === 'default',
-      'px-3 py-0.5 font-xs' : size === 'small',
+      'px-3 py-1 font-xs' : size === 'small',
       'px-14 py-3 font-xl' : size === 'large'
     }">
     <slot />
