@@ -7,7 +7,7 @@
           <Accordion title="Trips">
             <div ref="arcordionitemsList" v-for="trip in handlePaginationvalue.paginatedData.value" :key="trip.ID">
               <AccordionItem :title="trip.Date.toDateString() + ' ' + trip.ID">
-              <Title weight="normal" color="black" size="4">Total Emmision: {{trip.TotalEmission}}</Title>
+              <Title weight="normal" color="black" size="4">Total Score: {{trip.TotalEmission}}</Title>
               <SegmentTable>
                 <SegmmentTableRow v-for="segment in trip.Segments" :distance="segment.Distance" :time="segment.Time" :vehicle-name="segment.VehicleID.toString()"></SegmmentTableRow>
               </SegmentTable>
