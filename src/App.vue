@@ -6,8 +6,9 @@ import { RouterView } from 'vue-router'
   <div class="">
 
   </div>
-
-  <RouterView />
+  <Suspense>
+    <RouterView />
+  </Suspense>
 </template>
 
 <style scoped>

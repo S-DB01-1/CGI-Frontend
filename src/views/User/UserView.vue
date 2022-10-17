@@ -37,25 +37,24 @@
   import Navigation from '../../components/molecules/Navigation.vue'
   import { storeToRefs } from "pinia";
   import handlePagination from "@/handlePagination";
-import Pagination from "../../components/molecules/Pagination.vue";
+  import Pagination from "../../components/molecules/Pagination.vue";
   const store = useTripStore();
   const { Read } = storeToRefs(store);
-  const trips: Array<Trip> = []; 
+  const trips: Array<Trip> = [];
 
   let segment1 = new TripSegment(1, 1, 30, 40, 0, 400, 1);
   let segment2 = new TripSegment(2, 1, 20, 15, 0, 150, 2);
-  let segment3 = new TripSegment(2, 1, 1, 7, 0, 0, 3);
-  let trip1 = new Trip(1,1,new Date(),550,[segment1, segment2, segment3]);
-  let trip2 = new Trip(1,1,new Date(),550,[segment3, segment2, segment1]);
-
-  for (let i = 0; i < 38; i++) {
+  let segment3 = new TripSegment(3, 1, 1, 7, 0, 0, 3);
+  for (let i = 1; i < 38; i++) {
     let trip = new Trip(i,1,new Date(),550,[segment1, segment2, segment3]);
-    trips[i] = trip;
+    await store.Create(trip);
   }
-
-  console.debug("create trip");
-  store.Create(trip1);
-  store.Create(trip2);
+  
+  for (const key in Read.value) {
+    if (Read.value.hasOwnProperty(key)) {
+        trips[Read.value[key].ID] = (Read.value[key]);
+    }
+  }
 
   const handlePaginationvalue = handlePagination(5, 5, trips);
 
