@@ -1,7 +1,7 @@
 <template>
   <div class="mb-3">
     <Label>{{ label }}</Label>
-    <Input :type="type" :id="name" :status="status" :placeholder="placeholder" :name="name" :required="required"></Input>
+    <Input :type="type" :id="name" :status="status" :placeholder="placeholder" :name="name" :required="required" :model="model"></Input>
   </div>
 </template>
 
@@ -35,8 +35,12 @@ defineProps({
   required: {
     type: Boolean,
     default: false
+  },
+  model: {
+    type: String
   }
 });
+
 </script>
 
 <style scoped>

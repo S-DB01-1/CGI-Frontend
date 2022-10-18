@@ -1,22 +1,103 @@
 <template>
-  <Navigation></Navigation>
+  <Navigation type="user"></Navigation>
   <div>
-    <Modal name="createSegmentModal" @onModalClose="onModalClose" :state="modalState" class="flex h-screen justify-center items-center">
-      <Title color="primary" weight="bold" size="4" class="mb-3">Reisdeel toevoegen</Title>
+    <div id="createSegmentModal" tabindex="-1" aria-hidden="true" :class="{
+      'overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full backdrop flex h-screen justify-center items-center' : true,
+      'block': createSegmentModelState,
+      'hidden': !createSegmentModelState,
+    }">
+      <div class="modal-dialog modal-dialog-centered relative m-auto p-4 w-full max-w-4xl h-full md:h-auto content-center	">
+        <div class="relative bg-white rounded-lg shadow">
+          <button @click="onCreateModalClose(false)" type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center " :data-modal-toggle="name">
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+          <div class="py-6 px-6 lg:px-8">
+            <Title color="primary" weight="bold" size="4" class="mb-3">Add trip segments</Title>
 
-      <form v-on:submit.prevent="submitForm()">
-        <SelectGroup name="vehicle" label="Voertuig"></SelectGroup>
-        <InputGroup placeholder="Afstand in kilometers" status="default" name="distance" label="Afstand" required></InputGroup>
-        <InputGroup type="number" placeholder="Reistijd in minuten" status="default" name="time" label="Reistijd" required></InputGroup>
+            <form v-on:submit.prevent="submitForm()">
+              <FormKit
+                  label="Vehicle"
+                  type="select"
+                  placeholder="Vehicle"
+                  v-model="vehicle"
+                  :options="[
+                  'Car',
+                  'Bike',
+                  'Train',
+                  ]"
+                  required
+              />
 
-        <div class="flex justify-end">
-          <Button type="submit" size="default" theme="default">Toevoegen</Button>
+              <FormKit
+                  label="Distance in kilometers"
+                  type="number"
+                  placeholder="Distance in kilometers"
+                  v-model="distance"
+                  required
+              />
+
+              <div class="flex justify-end">
+                <Button type="submit" size="default" theme="default">Add</Button>
+              </div>
+            </form>
+
+          </div>
         </div>
-      </form>
-    </Modal>
+      </div>
+    </div>
+
+    <div id="editSegmentModal" tabindex="-1" aria-hidden="true" :class="{
+      'overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full backdrop flex h-screen justify-center items-center' : true,
+      'block': editSegmentModelState,
+      'hidden': !editSegmentModelState,
+    }">
+      <div class="modal-dialog modal-dialog-centered relative m-auto p-4 w-full max-w-4xl h-full md:h-auto content-center	">
+        <div class="relative bg-white rounded-lg shadow">
+          <button @click="onEditModalClose(false)" type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center " :data-modal-toggle="name">
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+          <div class="py-6 px-6 lg:px-8">
+            <Title color="primary" weight="bold" size="4" class="mb-3">Edit trip segments</Title>
+
+            <form v-on:submit.prevent="submitEditForm(editIndex)">
+              <FormKit
+                  label="Vehicle"
+                  type="select"
+                  placeholder="Vehicle"
+                  v-model="editVehicle"
+                  :options="[
+                  'Car',
+                  'Bike',
+                  'Train',
+                  ]"
+                  required
+              />
+
+              <FormKit
+                  label="Distance in kilometers"
+                  type="number"
+                  placeholder="Distance in kilometers"
+                  v-model="editDistance"
+                  required
+                  :value="editDistance"
+              />
+
+              <div class="flex justify-end">
+                <Button type="submit" size="default" theme="default">Save</Button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
 
     <Hero>
-      <Title size="1" weight="bold" color="primary">Nieuwe reis aanmaken</Title>
+      <Title size="1" weight="bold" color="primary">
+        Add new trip
+      </Title>
     </Hero>
     <Section>
       <div class="container mx-auto">
@@ -24,13 +105,23 @@
           <div class="w-full lg:w-3/5 py-4 px-6 m-auto">
 
             <!-- Trip date -->
-            <InputGroup placeholder="Reis datum" status="default" name="tripdate" label="Reis datum"></InputGroup>
+            <v-date-picker class="inline-block h-full w-full mb-3" v-model="date" :max-date='new Date()' color="red">
+              <template v-slot="{ inputValue, togglePopover }">
+                <div class="flex items-center">
+                  <input
+                      :value="inputValue"
+                      class="px-3 py-1 w-full text-lg font-source-sans-pro font-medium bg-white border-2 border-background"
+                      readonly @click="togglePopover()"
+                  />
+                </div>
+              </template>
+            </v-date-picker>
 
             <!-- Trip segments -->
 
             <div class="flex justify-between mb-3">
-              <Label>Reis delen</Label>
-              <button @click="showModal">
+              <Label>Trip segments</Label>
+              <button @click="showCreateModal">
                 <i class="fas fa-plus"></i>
               </button>
             </div>
@@ -38,9 +129,9 @@
               <div class="trip-segment-container w-full" v-show="tripSegments.length > 0">
                 <ul class="w-full text-gray-900">
                   <li v-for="(segment, index) in tripSegments" v-bind:key="index" class="w-full flex justify-between bg-background-light py-3 px-5 mb-3">
-                    <span>{{ segment.vehicle }} ({{ segment.distance }} km, {{ segment.time }} min)</span>
+                    <span>{{ segment.vehicle }} - {{ segment.distance }} km</span>
                     <div class="">
-                      <i class="fas fa-edit mr-3 text-primary cursor-pointer"></i>
+                      <i class="fas fa-edit mr-3 text-primary cursor-pointer" @click="showEditModal(index)"></i>
                       <i class="fas fa-trash text-secondary cursor-pointer" @click="deleteItem(index)"></i>
                     </div>
                   </li>
@@ -49,14 +140,14 @@
               <div class="trip-segment-container w-full" v-show="tripSegments.length <= 0">
                 <ul class="w-full text-gray-900">
                   <li class="w-full flex justify-between bg-background-light py-3 px-5 mb-3">
-                    <span>Geen reisdelen gevonden...</span>
+                    <span>No trip segments found...</span>
                   </li>
                 </ul>
               </div>
             </div>
 
             <div class="flex justify-end my-4">
-              <Button size="large" theme="default" class="w-full">Reis aanmaken</Button>
+              <Button size="large" theme="default" class="w-full">Create trip</Button>
             </div>
           </div>
         </div>
@@ -66,9 +157,8 @@
 </template>
 
 <script setup lang="ts">
-import InputGroup from '../../components/molecules/Forms/InputGroup.vue'
-import SelectGroup from '../../components/molecules/Forms/SelectGroup.vue'
-import Modal from '../../components/atoms/Modal.vue'
+import { ref } from 'vue';
+
 import Section from '../../components/molecules/Section.vue'
 import Button from '../../components/atoms/Forms/Button.vue'
 import Title from '../../components/atoms/Title.vue'
@@ -76,45 +166,69 @@ import Label from '../../components/atoms/Forms/Label.vue'
 import Hero from '../../components/molecules/Hero.vue'
 import Navigation from '../../components/molecules/Navigation.vue'
 
-import { ref } from "vue";
+import Datepicker from '../../components/atoms/Datepicker.vue'
 
-let modalState = ref(false);
-function showModal(){
-  modalState.value = !modalState.value
-}
-function onModalClose(n: any) {
-  modalState.value = n
-}
+const date = ref(new Date());
+
+let createSegmentModelState = ref(false);
+let editSegmentModelState = ref(false);
 
 let vehicle = ref('')
 let distance = ref('')
-let time = ref('')
+
 let tripSegments = ref([])
 
+let editVehicle = ref('')
+let editDistance = ref('')
+let editIndex = ref(0)
+
+function showCreateModal() {
+  createSegmentModelState.value = !createSegmentModelState.value
+}
+
+function showEditModal(index: number) {
+  editIndex.value = index
+  editVehicle.value = tripSegments.value[index].vehicle
+  editDistance.value = tripSegments.value[index].distance
+
+  editSegmentModelState.value = !editSegmentModelState.value
+}
+
+function onCreateModalClose(n: any) {
+  createSegmentModelState.value = n
+}
+
+function onEditModalClose(n: any) {
+  editSegmentModelState.value = n
+}
+
 function submitForm() {
-  vehicle = document.getElementById('vehicle').value;
-  distance = document.getElementById('distance').value;
-  time = document.getElementById('time').value;
+  if(distance.value != '' || time.value != '') {
+    tripSegments.value.push({ vehicle: vehicle.value, distance: distance.value })
 
-  tripSegments.value.push({ vehicle: vehicle, distance: distance, time: time })
-
-  clearForm();
-  showModal();
+    clearForm();
+    showCreateModal();
+  }
 }
 
-function updateSegment(index) {
-  let segment = tripSegments[index];
-  document.getElementById('distance').value = segment.distance;
-  document.getElementById('time').value = segment.time;
-}
-
-function deleteItem(index) {
+function deleteItem(index: number) {
   tripSegments.value.splice(index, 1);
 }
 
+function submitEditForm(index: any) {
+  tripSegments.value[index].vehicle = editVehicle.value
+  tripSegments.value[index].distance = editDistance.value
+
+  clearForm()
+  onEditModalClose(false)
+}
+
 function clearForm() {
-  document.getElementById('distance').value = '';
-  document.getElementById('time').value = '';
+  vehicle.value = ''
+  distance.value = ''
+
+  editVehicle.value = ''
+  editDistance.value = ''
 }
 </script>
 
@@ -141,5 +255,15 @@ ul li:last-child {
   position: absolute;
   background: -webkit-gradient(linear,left bottom,left top,color-stop(0,#5236ab),to(#e41937));
   background: linear-gradient(360deg,#5236ab 0,#e41937 100%);
+}
+
+.backdrop {
+  background-color: rgba(0,0,0,0.5);
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 100% !important;
+  }
 }
 </style>

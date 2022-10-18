@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const formKitTailwind = require('@formkit/themes/tailwindcss');
+
 module.exports = {
   content: [
     "./index.html",
@@ -20,10 +22,14 @@ module.exports = {
       },
       container: {
         padding: {
-          DEFAULT: '8.5rem',
+          DEFAULT: '2rem',
+          md: '3rem',
+          lg: '8.5rem',
         },
       },
     },
   },
-  plugins: [],
+  plugins: [
+    formKitTailwind
+  ],
 }

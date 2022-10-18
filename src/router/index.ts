@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Styling from '../views/Styling.vue'
 import devPages from "@/router/devRoutes"
+import adminRoutes from "@/router/adminRoutes"
 import CreateTrip from '../views/Trip/CreateTrip.vue'
 import UserView from '../views/User/UserView.vue'
 import User from '@/Model/User';
@@ -12,24 +13,15 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: CreateTrip
     },
     {
       path: '/styling',
       name: 'styling',
       component: Styling
     },
-    {
-      path: '/trip/aanmaken',
-      name: 'trip',
-      component: CreateTrip
-    },
-    {
-      path: '/user',
-      name: 'user',
-      component: UserView
-    },
-    ...devPages
+    ...devPages,
+    ...adminRoutes,
     // {
     //   path: '/about',
     //   name: 'about',
