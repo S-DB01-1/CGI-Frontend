@@ -20,6 +20,11 @@ const router = createRouter({
       name: 'styling',
       component: Styling
     },
+    {
+      path: '/user',
+      name: 'user',
+      component: UserView
+    },
     ...devPages,
     ...adminRoutes,
     // {

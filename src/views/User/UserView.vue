@@ -1,5 +1,5 @@
 <template>
-    <Navigation></Navigation>
+    <Navigation type="user"></Navigation>
   <main>
     <div class="container mx-auto">
         <div class="w-full sm:w-3/3 lg:w-2/3 bg-background-light py-4 px-6">
