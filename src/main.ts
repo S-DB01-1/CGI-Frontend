@@ -34,6 +34,8 @@ app.use(
                 text: textClassification,
                 number: textClassification,
                 select: textClassification,
+                email: textClassification,
+                password: textClassification
             }),
         },
     })

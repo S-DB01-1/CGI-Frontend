@@ -10,43 +10,35 @@
         <div class="relative bg-white rounded-lg shadow">
           <button @click="onCreateModalClose(false)" type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center " :data-modal-toggle="name">
             <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-            <span class="sr-only">Sluit popup</span>
+            <span class="sr-only">Close modal</span>
           </button>
           <div class="py-6 px-6 lg:px-8">
-            <Title color="primary" weight="bold" size="4" class="mb-3">Reisdeel toevoegen</Title>
+            <Title color="primary" weight="bold" size="4" class="mb-3">Add trip segments</Title>
 
             <form v-on:submit.prevent="submitForm()">
               <FormKit
-                  label="Vervoersmiddel"
+                  label="Vehicle"
                   type="select"
-                  placeholder="Vervoersmiddel"
+                  placeholder="Vehicle"
                   v-model="vehicle"
                   :options="[
-              'Auto',
-              'Fiets',
-              'Trein',
-            ]"
+                  'Car',
+                  'Bike',
+                  'Train',
+                  ]"
                   required
               />
 
               <FormKit
-                  label="Afstand in kilometers"
+                  label="Distance in kilometers"
                   type="number"
-                  placeholder="Afstand in kilometers"
+                  placeholder="Distance in kilometers"
                   v-model="distance"
                   required
               />
 
-              <FormKit
-                  label="Tijd in minuten"
-                  type="number"
-                  placeholder="Tijd in minuten"
-                  v-model="time"
-                  required
-              />
-
               <div class="flex justify-end">
-                <Button type="submit" size="default" theme="default">Toevoegen</Button>
+                <Button type="submit" size="default" theme="default">Add</Button>
               </div>
             </form>
 
@@ -64,44 +56,36 @@
         <div class="relative bg-white rounded-lg shadow">
           <button @click="onEditModalClose(false)" type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center " :data-modal-toggle="name">
             <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-            <span class="sr-only">Sluit popup</span>
+            <span class="sr-only">Close modal</span>
           </button>
           <div class="py-6 px-6 lg:px-8">
-            <Title color="primary" weight="bold" size="4" class="mb-3">Reisdeel bewerken</Title>
+            <Title color="primary" weight="bold" size="4" class="mb-3">Edit trip segments</Title>
 
             <form v-on:submit.prevent="submitEditForm(editIndex)">
               <FormKit
-                  label="Vervoersmiddel"
+                  label="Vehicle"
                   type="select"
-                  placeholder="Vervoersmiddel"
+                  placeholder="Vehicle"
                   v-model="editVehicle"
                   :options="[
-              'Auto',
-              'Fiets',
-              'Trein',
-            ]"
+                  'Car',
+                  'Bike',
+                  'Train',
+                  ]"
                   required
               />
 
               <FormKit
-                  label="Afstand in kilometers"
+                  label="Distance in kilometers"
                   type="number"
-                  placeholder="Afstand in kilometers"
+                  placeholder="Distance in kilometers"
                   v-model="editDistance"
                   required
                   :value="editDistance"
               />
 
-              <FormKit
-                  label="Tijd in minuten"
-                  type="number"
-                  placeholder="Tijd in minuten"
-                  v-model="editTime"
-                  required
-              />
-
               <div class="flex justify-end">
-                <Button type="submit" size="default" theme="default">Opslaan</Button>
+                <Button type="submit" size="default" theme="default">Save</Button>
               </div>
             </form>
 
@@ -112,8 +96,7 @@
 
     <Hero>
       <Title size="1" weight="bold" color="primary">
-        Nieuwe reis <br>
-        aanmaken
+        Add new trip
       </Title>
     </Hero>
     <Section>
@@ -137,7 +120,7 @@
             <!-- Trip segments -->
 
             <div class="flex justify-between mb-3">
-              <Label>Reis delen</Label>
+              <Label>Trip segments</Label>
               <button @click="showCreateModal">
                 <i class="fas fa-plus"></i>
               </button>
@@ -146,7 +129,7 @@
               <div class="trip-segment-container w-full" v-show="tripSegments.length > 0">
                 <ul class="w-full text-gray-900">
                   <li v-for="(segment, index) in tripSegments" v-bind:key="index" class="w-full flex justify-between bg-background-light py-3 px-5 mb-3">
-                    <span>{{ segment.vehicle }} ({{ segment.distance }} km, {{ segment.time }} min)</span>
+                    <span>{{ segment.vehicle }} - {{ segment.distance }} km</span>
                     <div class="">
                       <i class="fas fa-edit mr-3 text-primary cursor-pointer" @click="showEditModal(index)"></i>
                       <i class="fas fa-trash text-secondary cursor-pointer" @click="deleteItem(index)"></i>
@@ -157,14 +140,14 @@
               <div class="trip-segment-container w-full" v-show="tripSegments.length <= 0">
                 <ul class="w-full text-gray-900">
                   <li class="w-full flex justify-between bg-background-light py-3 px-5 mb-3">
-                    <span>Geen reisdelen gevonden...</span>
+                    <span>No trip segments found...</span>
                   </li>
                 </ul>
               </div>
             </div>
 
             <div class="flex justify-end my-4">
-              <Button size="large" theme="default" class="w-full">Reis aanmaken</Button>
+              <Button size="large" theme="default" class="w-full">Create trip</Button>
             </div>
           </div>
         </div>
@@ -192,13 +175,11 @@ let editSegmentModelState = ref(false);
 
 let vehicle = ref('')
 let distance = ref('')
-let time = ref('')
 
 let tripSegments = ref([])
 
 let editVehicle = ref('')
 let editDistance = ref('')
-let editTime = ref('')
 let editIndex = ref(0)
 
 function showCreateModal() {
@@ -209,7 +190,6 @@ function showEditModal(index: number) {
   editIndex.value = index
   editVehicle.value = tripSegments.value[index].vehicle
   editDistance.value = tripSegments.value[index].distance
-  editTime.value = tripSegments.value[index].time
 
   editSegmentModelState.value = !editSegmentModelState.value
 }
@@ -224,7 +204,7 @@ function onEditModalClose(n: any) {
 
 function submitForm() {
   if(distance.value != '' || time.value != '') {
-    tripSegments.value.push({ vehicle: vehicle.value, distance: distance.value, time: time.value })
+    tripSegments.value.push({ vehicle: vehicle.value, distance: distance.value })
 
     clearForm();
     showCreateModal();
@@ -238,7 +218,6 @@ function deleteItem(index: number) {
 function submitEditForm(index: any) {
   tripSegments.value[index].vehicle = editVehicle.value
   tripSegments.value[index].distance = editDistance.value
-  tripSegments.value[index].time = editTime.value
 
   clearForm()
   onEditModalClose(false)
@@ -246,11 +225,9 @@ function submitEditForm(index: any) {
 
 function clearForm() {
   vehicle.value = ''
-  time.value = ''
   distance.value = ''
 
   editVehicle.value = ''
-  editTime.value = ''
   editDistance.value = ''
 }
 </script>
