@@ -10,7 +10,7 @@
 
           <div class="py-8 px-12">
             <div class="flex">
-              <div class="w-100 p-0 lg:w-1/2 lg:pr-1">
+              <div class="w-100 p-0 lg:w-1/2 pr-1">
                 <FormKit
                     label="User"
                     type="text"
@@ -20,7 +20,7 @@
                     disabled=""
                 />
               </div>
-              <div class="w-100 p-0 lg:w-1/2 lg:pl-1">
+              <div class="w-100 p-0 lg:w-1/2 pl-1">
                 <FormKit
                     label="Date"
                     type="text"
@@ -32,7 +32,7 @@
               </div>
             </div>
             <div class="flex">
-              <div class="w-100 p-0 lg:w-1/2 lg:pr-1">
+              <div class="w-100 p-0 lg:w-1/2 pr-1">
                 <FormKit
                     label="Total kilometers"
                     type="text"
@@ -42,7 +42,7 @@
                     disabled=""
                 />
               </div>
-              <div class="w-100 p-0 lg:w-1/2 lg:pr-1">
+              <div class="w-100 p-0 lg:w-1/2 pl-1">
                 <FormKit
                     label="Total emission"
                     type="text"
