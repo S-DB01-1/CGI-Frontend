@@ -2,6 +2,7 @@
     <tr class="bg-white border-b">
         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ distance }} Km</td>
         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ vehicleName }}</td>
+        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ score }}</td>
       </tr>
 </template>
 
@@ -16,7 +17,11 @@
     vehicleName: {
         type: String,
         required: true
-      }
+      },
+    score: {
+      type: String,
+      required: true
+    }
     });
 </script>
     
