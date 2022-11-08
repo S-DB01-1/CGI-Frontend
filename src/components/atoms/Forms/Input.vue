@@ -7,7 +7,7 @@
             'border border-red-500': status === 'error'
          }"
          :placeholder="placeholder"
-         :name="name" :id="name" :required="required">
+         :name="name" :id="name" :required="required" :v-model="model">
 </template>
 
 <script setup lang="ts">
@@ -34,8 +34,12 @@ defineProps({
   required: {
     type: Boolean,
     default: false
+  },
+  model: {
+    type: String
   }
 });
+
 </script>
 
 <style scoped>
