@@ -11,20 +11,20 @@ let DAL: ITripDAL = new TripDALMemory();
 
 export const useTripStore = defineStore('trip', {
   state: () => {
-    return {} as TripStore
+    return {trip: {} as TripStore}
   },
   getters: {
     Read(state) {
-      return state;
+      return state.trip;
     },
-    Get(state) {
-      return (id: number) => state[id];
-    },
+    // Get(state) {
+    //   return (id: number) => state[id];
+    // },
   },
   actions: {
     async Create(trip: Trip) {
       await DAL.Create(trip.ToDTO()).then(trip => {
-        this.$state[trip.ID] = Trip.Load(trip);
+        this.$state.trip[trip.ID] = Trip.Load(trip);
       }).catch(error => {
         console.error(error);
       })
@@ -32,7 +32,7 @@ export const useTripStore = defineStore('trip', {
     async ReadAll() {
       await DAL.Read().then(trips => {
         trips.forEach(trip => {
-          this.$state[trip.ID] = Trip.Load(trip);
+          this.$state.trip[trip.ID] = Trip.Load(trip);
         })
       }).catch(error => {
         console.error(error)
@@ -40,21 +40,21 @@ export const useTripStore = defineStore('trip', {
     },
     async GetOne(ID: number) {
       await DAL.Get(ID).then(trip => {
-        this.$state[trip.ID] = Trip.Load(trip);
+        this.$state.trip[trip.ID] = Trip.Load(trip);
       }).catch(error => {
         console.error(error)
       })
     },
     async Update(trip: Trip) {
       await DAL.Update(trip.ToDTO()).then(trip => {
-        this.$state[trip.ID] = Trip.Load(trip);
+        this.$state.trip[trip.ID] = Trip.Load(trip);
       }).catch(error => {
         console.error(error)
       })
     },
     async Delete(ID: number) {
       await DAL.Delete(ID).then(() => {
-        delete this.$state[ID]
+        delete this.$state.trip[ID]
       }).catch(error => {
         console.error(error)
       })

@@ -4,6 +4,8 @@ import Styling from '../views/Styling.vue'
 import devPages from "@/router/devRoutes"
 import adminRoutes from "@/router/adminRoutes"
 import CreateTrip from '../views/Trip/CreateTrip.vue'
+import UserView from '../views/User/UserView.vue'
+import User from '@/Model/User';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,6 +20,12 @@ const router = createRouter({
       name: 'styling',
       component: Styling
     },
+    {
+      path: '/user',
+      name: 'user',
+      component: UserView
+    },
+
     ...devPages,
     ...adminRoutes,
     // {
