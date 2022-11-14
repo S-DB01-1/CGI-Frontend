@@ -25,6 +25,7 @@ const router = createRouter({
       name: 'user',
       component: UserView
     },
+
     ...devPages,
     ...adminRoutes,
     // {
