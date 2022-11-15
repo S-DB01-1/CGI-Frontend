@@ -1,23 +1,23 @@
 <template>
     <div class="pagination">
-        <Button theme="default" size="small" 
-            @click="handlePaginationvalue.backPage" 
+        <Button theme="default" size="small"
+            @click="handlePaginationvalue.backPage"
             v-if="handlePaginationvalue.page.value != 1">
-            prev
+          <i class="fas fa-arrow-left"></i>
         </Button>
         <Button :theme="handlePaginationvalue.pageButtonTheme(pageNum)" size="small"
             v-for="pageNum in handlePaginationvalue.pageRange()"
-            
+
             :key="pageNum"
             @click="() => handlePaginationvalue.goToPage(pageNum)"
         >
             {{ pageNum }}
         </Button>
         <span v-if="!handlePaginationvalue.pageRange().includes(handlePaginationvalue.pagecount)"> ... </span>
-        <Button theme="default" size="small" 
-            @click="handlePaginationvalue.nextPage" 
+        <Button theme="default" size="small"
+            @click="handlePaginationvalue.nextPage"
             v-if="handlePaginationvalue.page.value != handlePaginationvalue.pagecount">
-            next
+          <i class="fas fa-arrow-right"></i>
         </Button>
     </div>
 </template>
