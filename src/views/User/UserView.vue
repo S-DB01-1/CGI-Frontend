@@ -11,7 +11,7 @@
               <SegmentTable>
                 <SegmmentTableRow v-for="segment in trip.Segments" :distance="segment.Distance" :time="segment.Time" :vehicle-name="segment.VehicleID.toString()" :score="segment.Emission"></SegmmentTableRow>
               </SegmentTable>
-              <Button theme="default" size="small" @click ="EditTrip(trip.ID)"><a href="/home">Edit</a></Button>
+              <Button theme="default" size="small" @click ="EditTrip(trip.ID)"><a href="">edit</a></Button>
               <Button theme="default" size="small" @click ="showDeleteModal(), tempDeleteId = trip.ID">delete</Button>
             </AccordionItem>
             </div>
