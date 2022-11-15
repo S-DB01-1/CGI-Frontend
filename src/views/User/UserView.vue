@@ -92,13 +92,12 @@
 
   function EditTrip(tripID: number)
   {
-    	console.debug("EDIT TRIP: " + tripID);
+    
   }
 
   function DeleteTrip(tripID: number)
   {
     //store.Delete(tripID);
-    console.debug("DELETE TRIP: " + tripID);
     
   }
 </script>
