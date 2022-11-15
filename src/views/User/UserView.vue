@@ -2,7 +2,7 @@
     <Navigation type="user"></Navigation>
   <main>
     <div class="container mx-auto">
-        <div class="w-full sm:w-3/3 lg:w-2/3 bg-background-light py-4 px-6">
+        <div class="w-full sm:w-3/3 lg:w-2/3 bg-background-light py-4 px-6 mb-4">
           <Title weight="normal" color="black" size="1">Trip overview</Title>
           <Accordion title="Trips">
             <div ref="arcordionitemsList" v-for="trip in handlePaginationvalue.paginatedData.value" :key="trip.ID">
@@ -40,6 +40,13 @@
         </div>
       </div>
     </div>
+      <div class="py-6">
+        <div class="w-full sm:w-3/3 lg:w-2/3 py-4 px-6 bg-white border rounded">
+          <div class="bg-white rounded m-auto rounded-lg mb-3 p-4">
+            <LineChart :labels="['09-11-2022', '10-11-2022', '11-11-2022', '12-11-2022', '13-11-2022', '14-11-2022', '15-11-2022']" :user-data="[80, 20, 30, 10, 5, 50, 20]" :avarage-data="[50, 40, 25, 45, 20, 40, 60]" />
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 </template>
@@ -59,6 +66,7 @@
   import handlePagination from "@/handlePagination";
   import Pagination from "../../components/molecules/Pagination.vue";
   import { ref } from "vue";
+  import LineChart from '../../components/graph/LineChart.vue';
   let deleteSegmentModelState = ref(false);
   let tempDeleteId: number = 0;
 
@@ -66,7 +74,7 @@
     deleteSegmentModelState.value = !deleteSegmentModelState.value
 }
   function onDeleteModalClose(n: any) {
-  deleteSegmentModelState = n;  
+  deleteSegmentModelState = n;
   }
 
 
@@ -81,7 +89,7 @@
     let trip = new Trip(i,1,new Date(),550,[segment1, segment2, segment3]);
     await store.Create(trip);
   }
-  
+
   for (const key in Read.value) {
     if (Read.value.hasOwnProperty(key)) {
         trips[Read.value[key].ID] = (Read.value[key]);
@@ -92,13 +100,13 @@
 
   function EditTrip(tripID: number)
   {
-    
+
   }
 
   function DeleteTrip(tripID: number)
   {
     //store.Delete(tripID);
-    
+
   }
 </script>
 
