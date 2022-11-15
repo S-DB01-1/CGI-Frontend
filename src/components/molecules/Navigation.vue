@@ -15,11 +15,11 @@
           'hidden': !navigationState,
         }">
           <div class="text-sm lg:flex-grow pt-4 lg:pt-0 lg:px-6">
-            <a href="/home" class="block py-3 lg:py-0 lg:inline-block lg:mt-0 text-black text-base font-bold lg:mr-10">
+            <a href="/" class="block py-3 lg:py-0 lg:inline-block lg:mt-0 text-black text-base font-bold lg:mr-10">
               Home
             </a>
             <a href="/user" class="block py-3 lg:py-0 lg:inline-block lg:mt-0 text-black text-base font-bold lg:mr-10">
-              user
+              User
             </a>
           </div>
         </div>

@@ -11,7 +11,7 @@
               <SegmentTable>
                 <SegmmentTableRow v-for="segment in trip.Segments" :distance="segment.Distance" :time="segment.Time" :vehicle-name="segment.VehicleID.toString()" :score="segment.Emission"></SegmmentTableRow>
               </SegmentTable>
-              <Button theme="default" size="small" @click ="EditTrip(trip.ID)"><a href="/home">edit</a></Button>
+              <Button theme="default" size="small" @click ="EditTrip(trip.ID)"><a href="/home">Edit</a></Button>
               <Button theme="default" size="small" @click ="showDeleteModal(), tempDeleteId = trip.ID">delete</Button>
             </AccordionItem>
             </div>
@@ -19,7 +19,7 @@
           <Pagination :handle-paginationvalue="handlePaginationvalue" >
           </Pagination>
           <br>
-          <Button theme="default" size="small"><a href="/home">add trip</a></Button>
+          <Button theme="default" size="small"><a href="/">Add trip</a></Button>
         </div>
         <div id="deleteSegmentModal" tabindex="-1" aria-hidden="true" :class="{
       'overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full backdrop flex h-screen justify-center items-center' : true,
@@ -34,8 +34,8 @@
           </button>
           <div class="py-6 px-6 lg:px-8">
             <Title color="primary" weight="bold" size="4" class="mb-3">Are you sure?</Title>
-            <Button theme="white" size="small" @click ="showDeleteModal()">cancel</Button>
-            <Button theme="default" size="small" @click ="DeleteTrip(tempDeleteId), showDeleteModal()">delete</Button>
+            <Button theme="white" size="small" @click ="showDeleteModal()">Cancel</Button>
+            <Button theme="default" size="small" @click ="DeleteTrip(tempDeleteId), showDeleteModal()">Delete</Button>
           </div>
         </div>
       </div>
