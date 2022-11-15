@@ -42,20 +42,17 @@
           'hidden': !navigationState,
         }">
           <div class="text-sm lg:flex-grow pt-4 lg:pt-0">
-            <a href="" class="block py-3 lg:py-0 lg:inline-block lg:mt-0 text-black text-base font-bold lg:mr-10">
-              Dashboard
-            </a>
-            <router-link to="users">
+            <router-link to="/admin/users">
               <span class="block py-3 lg:py-0 lg:inline-block lg:mt-0 text-black text-base font-bold lg:mr-10">
                 Users
               </span>
             </router-link>
-            <router-link to="trips">
+            <router-link to="/admin/trips">
               <span class="block py-3 lg:py-0 lg:inline-block lg:mt-0 text-black text-base font-bold lg:mr-10">
                 Trips
               </span>
             </router-link>
-            <router-link to="vehicles">
+            <router-link to="/admin/vehicles">
               <span class="block py-3 lg:py-0 lg:inline-block lg:mt-0 text-black text-base font-bold lg:mr-10">
                 Vehicles
               </span>

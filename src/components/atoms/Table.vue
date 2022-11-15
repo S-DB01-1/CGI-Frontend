@@ -34,7 +34,23 @@
             </div>
 
             <div v-if="key === 'action'">
-              <Button size="small" theme="default">{{ format(item, (key as string)) }}</Button>
+              <div v-if="this.$route.name === 'users'">
+                <router-link to="/admin/user/1/show">
+                  <Button size="small" theme="default">{{ format(item, (key as string)) }}</Button>
+                </router-link>
+              </div>
+
+              <div v-if="this.$route.name === 'trips'">
+                <router-link to="/admin/trip/1/show">
+                  <Button size="small" theme="default">{{ format(item, (key as string)) }}</Button>
+                </router-link>
+              </div>
+
+              <div v-if="this.$route.name === 'vehicles'">
+                <router-link to="/admin/vehicle/1/edit">
+                  <Button size="small" theme="default">{{ format(item, (key as string)) }}</Button>
+                </router-link>
+              </div>
             </div>
           </slot>
         </Component>
