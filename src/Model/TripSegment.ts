@@ -1,4 +1,5 @@
 import type {TripSegmentDTO} from "@/DTO/TripSegmentDTO";
+import type Vehicle from "./Vehicle";
 
 export default class TripSegment {
   ID: number;
@@ -6,16 +7,16 @@ export default class TripSegment {
   Distance: number;
   Time: number;
   ExtraPersons: number;
-  VehicleID: number;
+  Vehicle: Vehicle;
   Emission: number;
 
-  constructor(id: number, tripID: number, distance: number, time: number, extraPersons: number, emission: number, vehicleID: number) {
+  constructor(id: number, tripID: number, distance: number, time: number, extraPersons: number, emission: number, vehicle: Vehicle) {
     this.ID = id;
     this.TripID = tripID;
     this.Distance = distance;
     this.Time = time;
     this.ExtraPersons = extraPersons;
-    this.VehicleID = vehicleID;
+    this.Vehicle = vehicle;
     this.Emission = emission;
   }
 
@@ -26,7 +27,7 @@ export default class TripSegment {
       Distance: this.Distance,
       Time: this.Time,
       ExtraPersons: this.ExtraPersons,
-      VehicleID: this.VehicleID,
+      Vehicle: this.Vehicle.ToDTO(),
       Emission: this.Emission,
     }
   }

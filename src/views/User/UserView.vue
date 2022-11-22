@@ -9,7 +9,7 @@
               <AccordionItem :title="trip.Date.toDateString() + ' ' + trip.ID">
               <Title weight="normal" color="black" size="4">Total Score: {{trip.TotalEmission}}</Title>
               <SegmentTable>
-                <SegmmentTableRow v-for="segment in trip.Segments" :distance="segment.Distance" :time="segment.Time" :vehicle-name="segment.VehicleID.toString()" :score="segment.Emission"></SegmmentTableRow>
+                <SegmmentTableRow v-for="segment in trip.Segments" :distance="segment.Distance" :time="segment.Time" :vehicle-name="segment.Vehicle.Name" :score="segment.Emission"></SegmmentTableRow>
               </SegmentTable>
               <Button theme="default" size="small" @click ="EditTrip(trip.ID)"><a href="">edit</a></Button>
               <Button theme="default" size="small" @click ="showDeleteModal(), tempDeleteId = trip.ID">delete</Button>
@@ -67,6 +67,7 @@
   import Pagination from "../../components/molecules/Pagination.vue";
   import { ref } from "vue";
   import LineChart from '../../components/graph/LineChart.vue';
+  import Vehicle from "@/Model/Vehicle";
   let deleteSegmentModelState = ref(false);
   let tempDeleteId: number = 0;
 
@@ -82,9 +83,9 @@
   const { Read } = storeToRefs(store);
   const trips: Array<Trip> = [];
 
-  let segment1 = new TripSegment(1, 1, 30, 40, 0, 400, 1);
-  let segment2 = new TripSegment(2, 1, 20, 15, 0, 150, 2);
-  let segment3 = new TripSegment(3, 1, 1, 7, 0, 0, 3);
+  let segment1 = new TripSegment(1, 1, 30, 40, 0, 400, new Vehicle(1, "Bus", 20));
+  let segment2 = new TripSegment(2, 1, 20, 15, 0, 150, new Vehicle(2, "Train", 5));
+  let segment3 = new TripSegment(3, 1, 1, 7, 0, 0, new Vehicle(3, "Walking", 0));
   for (let i = 1; i < 38; i++) {
     let trip = new Trip(i,1,new Date(),550,[segment1, segment2, segment3]);
     await store.Create(trip);
