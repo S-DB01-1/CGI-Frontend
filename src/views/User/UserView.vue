@@ -4,8 +4,24 @@
     <div class="container mx-auto">
         <div class="w-full sm:w-3/3 lg:w-2/3 bg-background-light py-4 px-6 mb-4">
           <Title weight="normal" color="black" size="1">Trip overview</Title>
+          <!-- datepicker -->
+          <v-date-picker class="inline-block h-full w-full mb-3" v-model="date" :max-date='new Date()' color="red" :input="ReFillList()">
+            <template v-slot="{ inputValue, togglePopover }">
+              <div class="flex items-center">
+                <input
+                  :value="inputValue"
+                  class="px-3 py-1 w-full text-lg font-source-sans-pro font-medium bg-white border-2 border-background"
+                  readonly @click="togglePopover()"
+                />
+                </div>
+            </template>
+          </v-date-picker>
+          <!-- list of trips -->
           <Accordion title="Trips">
-            <div ref="arcordionitemsList" v-for="trip in handlePaginationvalue.paginatedData.value" :key="trip.ID">
+            <UserTripItem :trips="handlePaginationvalue.paginatedData.value" v-on:EditTrip="EditTrip" v-on:DeleteTrip="showDeleteModal">
+
+            </UserTripItem>
+            <!-- <div ref="arcordionitemsList" v-for="trip in handlePaginationvalue.paginatedData.value">
               <AccordionItem :title="trip.Date.toDateString() + ' ' + trip.ID">
               <Title weight="normal" color="black" size="4">Total Score: {{trip.TotalEmission}}</Title>
               <SegmentTable>
@@ -14,7 +30,7 @@
               <Button theme="default" size="small" @click ="EditTrip(trip.ID)"><a href="">edit</a></Button>
               <Button theme="default" size="small" @click ="showDeleteModal(), tempDeleteId = trip.ID">delete</Button>
             </AccordionItem>
-            </div>
+            </div> -->
           </Accordion>
           <Pagination :handle-paginationvalue="handlePaginationvalue" >
           </Pagination>
@@ -68,36 +84,56 @@
   import { ref } from "vue";
   import LineChart from '../../components/graph/LineChart.vue';
   import Vehicle from "@/Model/Vehicle";
-  let deleteSegmentModelState = ref(false);
-  let tempDeleteId: number = 0;
-
-  function showDeleteModal() {
-    deleteSegmentModelState.value = !deleteSegmentModelState.value
-}
-  function onDeleteModalClose(n: any) {
-  deleteSegmentModelState = n;
-  }
-
+import UserTripItem from "@/components/atoms/UserTripItem.vue";
 
   const store = useTripStore();
   const { Read } = storeToRefs(store);
-  const trips: Array<Trip> = [];
+  let trips = ref([]);
+  let deleteSegmentModelState = ref(false);
+  let tempDeleteId: number = 0;
+  const date = ref(new Date());
+  let handlePaginationvalue = ref();
+
+  function showDeleteModal() {
+    deleteSegmentModelState.value = !deleteSegmentModelState.value
+  }
 
   let segment1 = new TripSegment(1, 1, 30, 40, 0, 400, new Vehicle(1, "Bus", 20));
   let segment2 = new TripSegment(2, 1, 20, 15, 0, 150, new Vehicle(2, "Train", 5));
   let segment3 = new TripSegment(3, 1, 1, 7, 0, 0, new Vehicle(3, "Walking", 0));
-  for (let i = 1; i < 38; i++) {
+  //for test data (i know its ugly :) ) 
+  for (let i = 1; i < 20; i++) {
     let trip = new Trip(i,1,new Date(),550,[segment1, segment2, segment3]);
     await store.Create(trip);
   }
 
-  for (const key in Read.value) {
-    if (Read.value.hasOwnProperty(key)) {
-        trips[Read.value[key].ID] = (Read.value[key]);
-    }
+  for (let i = 5; i < 7; i++) {
+    let trip = new Trip(i,1,new Date("2022-11-29"),550,[segment1, segment2, segment3]);
+    await store.Create(trip);
   }
 
-  const handlePaginationvalue = handlePagination(5, 5, trips);
+  ReFillList();
+
+  function ReFillList()
+  {
+    console.debug("ReFillList()");
+    trips = ref([])
+    for (const key in Read.value) {
+      if (Read.value.hasOwnProperty(key) && IsSameDate(Read.value[key].Date)) {
+        trips.value[Read.value[key].ID] = (Read.value[key]);
+      }
+    }
+    handlePaginationvalue = handlePagination(5, 5, trips.value);
+    console.debug(handlePaginationvalue.paginatedData.value);
+    
+  }
+
+  function IsSameDate(tripDate: Date): boolean
+  {
+      return (tripDate.getDate() == date.value.getDate()
+              && tripDate.getDay() == date.value.getDay()
+              && tripDate.getFullYear() == date.value.getFullYear())
+  }
 
   function EditTrip(tripID: number)
   {
@@ -107,7 +143,7 @@
   function DeleteTrip(tripID: number)
   {
     //store.Delete(tripID);
-
+    console.debug("deleteTrip()")
   }
 </script>
 
