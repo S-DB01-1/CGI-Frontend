@@ -18,7 +18,7 @@
           </v-date-picker>
           <!-- list of trips -->
           <Accordion title="Trips">
-            <UserTripItem :trips="handlePaginationvalue.paginatedData.value" v-on:EditTrip="EditTrip" v-on:DeleteTrip="showDeleteModal">
+            <UserTripItem :trips="handlePaginationvalue.paginatedData.value" v-on:EditTrip="EditTrip" v-on:DeleteTrip="showDeleteModal" v-bind:key="count">
 
             </UserTripItem>
             <!-- <div ref="arcordionitemsList" v-for="trip in handlePaginationvalue.paginatedData.value">
@@ -93,6 +93,7 @@ import UserTripItem from "@/components/atoms/UserTripItem.vue";
   let tempDeleteId: number = 0;
   const date = ref(new Date());
   let handlePaginationvalue = ref();
+  let count = 0;
 
   function showDeleteModal() {
     deleteSegmentModelState.value = !deleteSegmentModelState.value
@@ -124,7 +125,7 @@ import UserTripItem from "@/components/atoms/UserTripItem.vue";
       }
     }
     handlePaginationvalue = handlePagination(5, 5, trips.value);
-    console.debug(handlePaginationvalue.paginatedData.value);
+    count++;
     
   }
 
@@ -143,7 +144,6 @@ import UserTripItem from "@/components/atoms/UserTripItem.vue";
   function DeleteTrip(tripID: number)
   {
     //store.Delete(tripID);
-    console.debug("deleteTrip()")
   }
 </script>
 

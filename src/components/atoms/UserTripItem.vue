@@ -1,12 +1,12 @@
 <template>
-    <div ref="arcordionitemsList" v-for="trip in trips">
+    <div ref="arcordionitemsList" v-for="trip in trips" v-bind:key="trip.ID">
         <AccordionItem :title="trip.Date.toDateString() + ' ' + trip.ID">
         <Title weight="normal" color="black" size="4">Total Score: {{trip.TotalEmission}}</Title>
         <SegmentTable>
           <SegmmentTableRow v-for="segment in trip.Segments" :distance="segment.Distance" :time="segment.Time" :vehicle-name="segment.Vehicle.Name" :score="segment.Emission"></SegmmentTableRow>
         </SegmentTable>
-        <Button theme="default" size="small" @click ="EditTrip(trip.ID)"><a href="">edit</a></Button>
-        <Button theme="default" size="small" @click ="showDeleteModal(trip.ID)">delete</Button>
+        <Button theme="default" size="small" @click ="$emit('EditTrip', trip.ID)"><a href="">edit</a></Button>
+        <Button theme="default" size="small" @click ="$emit('DeleteTrip', trip.ID);">delete</Button>
       </AccordionItem>
       </div>
 </template>
@@ -25,14 +25,4 @@ defineProps({
     required: true,
   },
 });
-
-  function EditTrip(id: number)
-  {
-    this.$emit('EditTrip', id);
-  }
-
-  function showDeleteModal(id: number)
-  {
-    this.$emit('DeleteTrip', id);
-  }
 </script>
