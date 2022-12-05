@@ -18,7 +18,7 @@
           </v-date-picker>
           <!-- list of trips -->
           <Accordion title="Trips">
-            <UserTripItem :trips="handlePaginationvalue.paginatedData.value" v-on:EditTrip="EditTrip" v-on:DeleteTrip="showDeleteModal" v-bind:key="count">
+            <UserTripItem :trips="handlePaginationvalue.paginatedData" v-on:EditTrip="EditTrip" v-on:DeleteTrip="showDeleteModal">
 
             </UserTripItem>
             <!-- <div ref="arcordionitemsList" v-for="trip in handlePaginationvalue.paginatedData.value">
@@ -81,10 +81,10 @@
   import { storeToRefs } from "pinia";
   import handlePagination from "@/handlePagination";
   import Pagination from "../../components/molecules/Pagination.vue";
-  import { ref } from "vue";
+  import { reactive, ref } from "vue";
   import LineChart from '../../components/graph/LineChart.vue';
   import Vehicle from "@/Model/Vehicle";
-import UserTripItem from "@/components/atoms/UserTripItem.vue";
+  import UserTripItem from "@/components/atoms/UserTripItem.vue";
 
   const store = useTripStore();
   const { Read } = storeToRefs(store);
@@ -92,8 +92,7 @@ import UserTripItem from "@/components/atoms/UserTripItem.vue";
   let deleteSegmentModelState = ref(false);
   let tempDeleteId: number = 0;
   const date = ref(new Date());
-  let handlePaginationvalue = ref();
-  let count = 0;
+  let handlePaginationvalue = reactive(handlePagination(5, 5, []));
 
   function showDeleteModal() {
     deleteSegmentModelState.value = !deleteSegmentModelState.value
@@ -108,8 +107,9 @@ import UserTripItem from "@/components/atoms/UserTripItem.vue";
     await store.Create(trip);
   }
 
-  for (let i = 5; i < 7; i++) {
-    let trip = new Trip(i,1,new Date("2022-11-29"),550,[segment1, segment2, segment3]);
+  for (let j = 20; j < 25; j++) {
+    let trip = new Trip(j,1,new Date("2022-11-29"),550,[segment1, segment2, segment3]);
+    console.debug(trip);
     await store.Create(trip);
   }
 
@@ -124,9 +124,8 @@ import UserTripItem from "@/components/atoms/UserTripItem.vue";
         trips.value[Read.value[key].ID] = (Read.value[key]);
       }
     }
-    handlePaginationvalue = handlePagination(5, 5, trips.value);
-    count++;
-    
+    handlePaginationvalue = reactive(handlePagination(5, 5, trips.value));
+    console.debug(handlePaginationvalue);    
   }
 
   function IsSameDate(tripDate: Date): boolean

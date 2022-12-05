@@ -23,6 +23,6 @@ defineProps({
   trips: {
     type: Array<Trip>,
     required: true,
-  },
+  }
 });
 </script>
