@@ -20,6 +20,10 @@ import Title from '../atoms/Title.vue'
 </script>
 
 <style>
+h1 {
+  text-align: center;
+}
+
 .hero-image {
   height: auto;
   width: 75%;
