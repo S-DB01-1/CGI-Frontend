@@ -22,32 +22,32 @@ export const useTripStore = defineStore('trip', {
     // },
   },
   actions: {
-    async Create(trip: Trip) {
-      await DAL.Create(trip.ToDTO()).then(trip => {
-        this.$state.trip[trip.ID] = Trip.Load(trip);
+    async Create(date: Date, segments: {distance: number, people: number, vehicle_id: number}[]) {
+      await DAL.Create(date, segments).then(trip => {
+        this.$state.trip[trip.id] = Trip.Load(trip);
       }).catch(error => {
         console.error(error);
       })
     },
-    async ReadAll() {
+    async Read() {
       await DAL.Read().then(trips => {
         trips.forEach(trip => {
-          this.$state.trip[trip.ID] = Trip.Load(trip);
+          this.$state.trip[trip.id] = Trip.Load(trip);
         })
       }).catch(error => {
         console.error(error)
       })
     },
-    async GetOne(ID: number) {
+    async Get(ID: number) {
       await DAL.Get(ID).then(trip => {
-        this.$state.trip[trip.ID] = Trip.Load(trip);
+        this.$state.trip[trip.id] = Trip.Load(trip);
       }).catch(error => {
         console.error(error)
       })
     },
-    async Update(trip: Trip) {
-      await DAL.Update(trip.ToDTO()).then(trip => {
-        this.$state.trip[trip.ID] = Trip.Load(trip);
+    async Update(id: number, date: Date, segments: {distance: number, people: number, vehicle_id: number}[]) {
+      await DAL.Update(id, date, segments).then(trip => {
+        this.$state.trip[trip.id] = Trip.Load(trip);
       }).catch(error => {
         console.error(error)
       })

@@ -22,32 +22,32 @@ export const useVehicleStore = defineStore('vehicle', {
     },
   },
   actions: {
-    async Create(vehicle: Vehicle) {
-      await DAL.Create(vehicle).then(vehicle => {
-        this.$state[vehicle.ID] = Vehicle.Load(vehicle);
+    async Create(name: string, emission: number) {
+      await DAL.Create(name, emission).then(vehicle => {
+        this.$state[vehicle.id] = Vehicle.Load(vehicle);
       }).catch(error => {
         console.error(error);
       })
     },
-    async ReadAll() {
+    async Read() {
       await DAL.Read().then(vehicles => {
         vehicles.forEach(vehicle => {
-          this.$state[vehicle.ID] = Vehicle.Load(vehicle);
+          this.$state[vehicle.id] = Vehicle.Load(vehicle);
         })
       }).catch(error => {
         console.error(error)
       })
     },
-    async GetOne(ID: number) {
+    async Get(ID: number) {
       await DAL.Get(ID).then(vehicle => {
-        this.$state[vehicle.ID] = Vehicle.Load(vehicle);
+        this.$state[vehicle.id] = Vehicle.Load(vehicle);
       }).catch(error => {
         console.error(error)
       })
     },
-    async Update(vehicle: Vehicle) {
-      await DAL.Update(vehicle).then(vehicle => {
-        this.$state[vehicle.ID] = Vehicle.Load(vehicle);
+    async Update(id: number, name: string, emission: number) {
+      await DAL.Update(id, name, emission).then(vehicle => {
+        this.$state[vehicle.id] = Vehicle.Load(vehicle);
       }).catch(error => {
         console.error(error)
       })

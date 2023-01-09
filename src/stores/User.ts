@@ -22,42 +22,21 @@ export const useUserStore = defineStore('user', {
     },
   },
   actions: {
-    async Create(user: User) {
-      await DAL.Create(user).then(user => {
-        this.$state[user.ID] = User.Load(user);
-      }).catch(error => {
-        console.error(error);
-      })
-    },
-    async ReadAll() {
+    async Read() {
       await DAL.Read().then(users => {
         users.forEach(user => {
-          this.$state[user.ID] = User.Load(user);
+          this.$state[user.id] = User.Load(user);
         })
       }).catch(error => {
         console.error(error)
       })
     },
-    async GetOne(ID: number) {
+    async Get(ID: number) {
       await DAL.Get(ID).then(user => {
-        this.$state[user.ID] = User.Load(user);
+        this.$state[user.id] = User.Load(user);
       }).catch(error => {
         console.error(error)
       })
     },
-    async Update(user: User) {
-      await DAL.Update(user).then(user => {
-        this.$state[user.ID] = User.Load(user);
-      }).catch(error => {
-        console.error(error)
-      })
-    },
-    async Delete(ID: number) {
-      await DAL.Delete(ID).then(() => {
-        delete this.$state[ID]
-      }).catch(error => {
-        console.error(error)
-      })
-    }
   }
 })
