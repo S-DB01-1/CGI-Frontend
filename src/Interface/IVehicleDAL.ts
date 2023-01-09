@@ -1,9 +1,9 @@
 import type {VehicleDTO} from "@/DTO/VehicleDTO";
 
 export default interface IVehicleDAL {
-  Create(vehicle: VehicleDTO): Promise<VehicleDTO>
+  Create(name: string, emission: number): Promise<VehicleDTO>
   Read(): Promise<VehicleDTO[]>
-  Get(ID: number): Promise<VehicleDTO>
-  Update(vehicle: VehicleDTO): Promise<VehicleDTO>
-  Delete(ID: number): Promise<void>
+  Get(id: number): Promise<VehicleDTO>
+  Update(id: number, name: string, emission: number): Promise<VehicleDTO>
+  Delete(id: number): Promise<void>
 }

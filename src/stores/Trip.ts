@@ -2,11 +2,11 @@
 import {defineStore} from 'pinia'
 import Trip from "@/Model/Trip";
 import type ITripDAL from "@/Interface/ITripDAL";
-import TripDALMemory from "@/DAL/TripDALMemory";
+import TripDALAPI from "@/DAL/TripDALAPI";
 
 type TripStore = {[key: number]: Trip};
 
-let DAL: ITripDAL = new TripDALMemory();
+let DAL: ITripDAL = new TripDALAPI();
 
 
 export const useTripStore = defineStore('trip', {

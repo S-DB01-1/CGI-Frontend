@@ -2,11 +2,11 @@
 import {defineStore} from 'pinia'
 import Vehicle from "@/Model/Vehicle";
 import type IVehicleDAL from "@/Interface/IVehicleDAL";
-import VehicleDALMemory from "@/DAL/VehicleDALMemory";
+import VehicleDALAPI from "@/DAL/VehicleDALAPI";
 
 type VehicleStore = {[key: number]: Vehicle};
 
-let DAL: IVehicleDAL = new VehicleDALMemory();
+let DAL: IVehicleDAL = new VehicleDALAPI();
 
 
 export const useVehicleStore = defineStore('vehicle', {

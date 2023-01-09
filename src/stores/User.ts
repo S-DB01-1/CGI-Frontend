@@ -2,11 +2,11 @@
 import {defineStore} from 'pinia'
 import User from "@/Model/User";
 import type IUserDAL from "@/Interface/IUserDAL";
-import UserDALMemory from "@/DAL/UserDALMemory";
+import UserDALAPI from "@/DAL/UserDALAPI";
 
 type UserStore = {[key: number]: User};
 
-let DAL: IUserDAL = new UserDALMemory();
+let DAL: IUserDAL = new UserDALAPI();
 
 
 export const useUserStore = defineStore('user', {
@@ -22,17 +22,10 @@ export const useUserStore = defineStore('user', {
     },
   },
   actions: {
-    async Create(user: User) {
-      await DAL.Create(user).then(user => {
-        this.$state[user.ID] = User.Load(user);
-      }).catch(error => {
-        console.error(error);
-      })
-    },
     async ReadAll() {
       await DAL.Read().then(users => {
         users.forEach(user => {
-          this.$state[user.ID] = User.Load(user);
+          this.$state[user.id] = User.Load(user);
         })
       }).catch(error => {
         console.error(error)
@@ -40,24 +33,10 @@ export const useUserStore = defineStore('user', {
     },
     async GetOne(ID: number) {
       await DAL.Get(ID).then(user => {
-        this.$state[user.ID] = User.Load(user);
+        this.$state[user.id] = User.Load(user);
       }).catch(error => {
         console.error(error)
       })
     },
-    async Update(user: User) {
-      await DAL.Update(user).then(user => {
-        this.$state[user.ID] = User.Load(user);
-      }).catch(error => {
-        console.error(error)
-      })
-    },
-    async Delete(ID: number) {
-      await DAL.Delete(ID).then(() => {
-        delete this.$state[ID]
-      }).catch(error => {
-        console.error(error)
-      })
-    }
   }
 })
