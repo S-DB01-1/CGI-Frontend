@@ -19,7 +19,7 @@
               Home
             </a>
             <a href="/user" class="block py-3 lg:py-0 lg:inline-block lg:mt-0 text-black text-base font-bold lg:mr-10">
-              User
+              Trip Overview
             </a>
           </div>
         </div>

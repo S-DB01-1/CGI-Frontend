@@ -1,16 +1,18 @@
 <template>
-  <Line
-      :chart-options="{
-        responsive: true,
-        bezierCurve: true
-      }"
-      :chart-data="{
-        labels: labels,
-        datasets: [ { data: userData, borderColor: '#e41937', backgroundColor: '#e41937', label: 'Your score', lineTension: 0.3 }, { data: avarageData, borderColor: '#5236ab', backgroundColor: '#5236ab', label: 'Avarage score', lineTension: 0.3} ],
-      }"
-      :width="1000"
-      :height="400"
-  />
+  <div class="LineChart">
+    <Line
+        :chart-options="{
+          responsive: false,
+          bezierCurve: true
+        }"
+        :chart-data="{
+          labels: labels,
+          datasets: [ { data: userData, borderColor: '#e41937', backgroundColor: '#e41937', label: 'Your score', lineTension: 0.3 }, { data: avarageData, borderColor: '#5236ab', backgroundColor: '#5236ab', label: 'Avarage score', lineTension: 0.3} ],
+        }"
+        :width="500"
+        :height="300"
+    />
+  </div>
 </template>
 
 <script setup="ts">
@@ -72,5 +74,9 @@ defineComponent({
 </script>
 
 <style scoped>
+
+.LineChart {
+  overflow: scroll;
+}
 
 </style>
