@@ -1,5 +1,5 @@
 export type VehicleDTO = {
-    ID: number;
-    Name: string;
-    EmissionPerKM: number;
+    id: number;
+    name: string;
+    emission: number;
 }

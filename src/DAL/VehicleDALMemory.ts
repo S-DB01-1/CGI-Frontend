@@ -1,7 +1,7 @@
 import type IVehicleDAL from "@/Interface/IVehicleDAL";
 import type {VehicleDTO} from "@/DTO/VehicleDTO";
 
-export default class TripDALMemory implements IVehicleDAL {
+export default class VehicleDALMemory implements IVehicleDAL {
   private store = {} as { [key: number]: VehicleDTO };
   private index = 0;
 
