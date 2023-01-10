@@ -1,5 +1,7 @@
 <template>
-  <Bar
+  <div class="BarChart">
+    <div>
+      <Bar
       :chart-options="{
         responsive: true,
         backgroundColor: [
@@ -19,6 +21,8 @@
       :width="1000"
       :height="400"
   />
+    </div>
+  </div>
 </template>
 
 <script setup="ts">
@@ -60,5 +64,23 @@ defineComponent({
 </script>
 
 <style scoped>
+.BarChart {
+  overflow: scroll;
+  /* width: 500px; */
+}
 
+.BarChart div {
+  width: 500px;
+}
+
+@media (min-width: 640px) {
+  .BarChart {
+    overflow: hidden;
+    /* width: 1000px; */
+  }
+
+  .BarChart div {
+    width: 1000px;
+  }
+}
 </style>
