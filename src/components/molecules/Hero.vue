@@ -6,7 +6,9 @@
       </div>
       <div class="w-full lg:w-1/2 m-auto">
         <div class="hidden md:block lg:block hero-banner flex justify-end">
-          <img class="hero-image" src="https://www.cgi.com/sites/default/files/styles/hero_banner/public/humble-brags_hero-banner_banking_0.jpg?itok=Q8RiOUkX" alt="">
+          <div id="hero-image">
+          </div>
+            <img class="hero-image" src="https://www.telegraph.co.uk/content/dam/health-fitness/spark/centrum/man-riding-bike-in-suit-xlarge.jpg" alt="Happy man riding on bike">
         </div>
       </div>
     </div>
@@ -14,31 +16,35 @@
 </template>
 
 <script setup lang="ts">
-  import Title from '../atoms/Title.vue'
+import Title from '../atoms/Title.vue'
 </script>
 
 <style>
+h1 {
+  text-align: center;
+}
 
-.hero-banner > .hero-image::before {
-  content: '';
+.hero-image {
+  height: auto;
+  width: 75%;
+}
+
+.hero-banner > #hero-image::before {
+  content: "";
   position: absolute !important;
   display: inline-block;
-  width: 117px;
-  height: 117px;
-  left: 0;
-  bottom: 0;
+  width: 60px;
+  height: 60px;
   background-color: #efefef;
   z-index: 15;
 }
 
-.hero-banner > .hero-image::after {
-  content: '';
+.hero-banner > #hero-image::after {
+  content: "";
   position: absolute !important;
   display: inline-block;
-  width: 195px;
-  height: 195px;
-  left: 0;
-  bottom: 0;
+  width: 100px;
+  height: 100px;
   z-index: 10;
   background: -webkit-gradient(linear,left bottom,left top,from(#5236ab),to(#e41937));
   background: linear-gradient(360deg,#5236ab 0%,#e41937 100%);

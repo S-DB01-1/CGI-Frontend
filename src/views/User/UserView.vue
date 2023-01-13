@@ -2,6 +2,13 @@
     <Navigation type="user"></Navigation>
   <main>
     <div class="container mx-auto">
+      <div class="py-6">
+      <div class="w-full sm:w-3/3 lg:w-2/3 py-4 px-6 bg-white border rounded">
+        <div class="bg-white rounded m-auto rounded-lg mb-3 p-4">
+          <LineChart :labels="['09-11-2022', '10-11-2022', '11-11-2022', '12-11-2022', '13-11-2022', '14-11-2022', '15-11-2022']" :user-data="[80, 20, 30, 10, 5, 50, 20]" :avarage-data="[50, 40, 25, 45, 20, 40, 60]" />
+        </div>
+      </div>
+    </div>
         <div class="w-full sm:w-3/3 lg:w-2/3 bg-background-light py-4 px-6 mb-4">
           <Title weight="normal" color="black" size="1">Trip overview</Title>
           <Accordion title="Trips">
@@ -40,13 +47,6 @@
         </div>
       </div>
     </div>
-      <div class="py-6">
-        <div class="w-full sm:w-3/3 lg:w-2/3 py-4 px-6 bg-white border rounded">
-          <div class="bg-white rounded m-auto rounded-lg mb-3 p-4">
-            <LineChart :labels="['09-11-2022', '10-11-2022', '11-11-2022', '12-11-2022', '13-11-2022', '14-11-2022', '15-11-2022']" :user-data="[80, 20, 30, 10, 5, 50, 20]" :avarage-data="[50, 40, 25, 45, 20, 40, 60]" />
-          </div>
-        </div>
-      </div>
     </div>
   </main>
 </template>

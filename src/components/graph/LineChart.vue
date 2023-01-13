@@ -1,16 +1,20 @@
 <template>
-  <Line
-      :chart-options="{
-        responsive: true,
-        bezierCurve: true
-      }"
-      :chart-data="{
-        labels: labels,
-        datasets: [ { data: userData, borderColor: '#e41937', backgroundColor: '#e41937', label: 'Your score', lineTension: 0.3 }, { data: avarageData, borderColor: '#5236ab', backgroundColor: '#5236ab', label: 'Avarage score', lineTension: 0.3} ],
-      }"
-      :width="1000"
-      :height="400"
-  />
+  <div class="LineChart">
+    <div>
+    <Line
+        :chart-options="{
+          responsive: true,
+          bezierCurve: true
+        }"
+        :chart-data="{
+          labels: labels,
+          datasets: [ { data: userData, borderColor: '#e41937', backgroundColor: '#e41937', label: 'Your score', lineTension: 0.3 }, { data: avarageData, borderColor: '#5236ab', backgroundColor: '#5236ab', label: 'Avarage score', lineTension: 0.3} ],
+        }"
+        :width="1000"
+        :height="300"
+    />
+  </div>
+  </div>
 </template>
 
 <script setup="ts">
@@ -50,12 +54,12 @@ defineProps({
 })
 
 defineComponent({
-  name: 'BarChart',
+  name: 'LineChart',
   components: { Line },
   props: {
     chartId: {
       type: String,
-      default: 'bar-chart'
+      default: 'line-chart'
     },
     width: {
       type: Number,
@@ -72,5 +76,25 @@ defineComponent({
 </script>
 
 <style scoped>
+
+.LineChart {
+  overflow: scroll;
+  /* width: 500px; */
+}
+
+.LineChart div {
+  width: 500px;
+}
+
+@media (min-width: 640px) {
+  .LineChart {
+    overflow: hidden;
+    /* width: 1000px; */
+  }
+
+  .LineChart div {
+    width: 1000px;
+  }
+}
 
 </style>
